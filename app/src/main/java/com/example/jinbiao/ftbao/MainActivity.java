@@ -16,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
+
     @BindView(R.id.rg)
     RadioGroup radioGroup;
     FragmentManager fragmentManager = this.getSupportFragmentManager();
@@ -32,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initView();
         homeFragment = (HomeFragment) FragmentUtils.loadFragment(homeFragment, HomeFragment.class, fragmentManager, R.id.content_main);
+
+
+
     }
 
     private void initView() {
