@@ -6,5 +6,6 @@
     
     <dimen name="view_small_padding">1dp</dimen>
     <dimen name="view_padding">6dp</dimen>
-
+    <!--Home-->
+    <dimen name="rb_horizontal_margin">5dp</dimen>
 </resources>

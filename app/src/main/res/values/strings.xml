@@ -5,4 +5,7 @@
     <string name="home">首页</string>
     <string name="cart">购物车</string>
     <string name="discovery">发现</string>
+
+    <!--Home-->
+    <string name="rg_cat">天猫</string>
 </resources>
