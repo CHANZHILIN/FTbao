@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.jinbiao.ftbao.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/content_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+    </FrameLayout>
+
+    <RadioGroup
+        android:id="@+id/rg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/radioGroup">
+
+        <RadioButton
+            android:id="@+id/rb_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/home_selector"
+            android:text="@string/home"
+            android:checked="true"
+            style="@style/radioBotton"
+            />
+        <RadioButton
+            android:id="@+id/rb_discovery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/discovery_selector"
+            android:text="@string/discovery"
+            style="@style/radioBotton"
+            />
+        <RadioButton
+            android:id="@+id/rb_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/cart_selector"
+            android:text="@string/cart"
+            style="@style/radioBotton"
+            />
+        <RadioButton
+            android:id="@+id/rb_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/accout_selector"
+            android:text="@string/account"
+            style="@style/radioBotton"
+            />
+    </RadioGroup>
+</LinearLayout>
