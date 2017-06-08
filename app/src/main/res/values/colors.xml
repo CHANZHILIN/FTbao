@@ -6,7 +6,7 @@
 
     <color name="rb_text_color_check">#6B5542</color>
     <color name="rb_text_color_normal">#a1a1a1</color>
-
+    <color name="accountActionBar">#EE3D11</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="gray">#666666</color>

@@ -8,4 +8,22 @@
 
     <!--Home-->
     <string name="rg_cat">天猫</string>
+
+
+    <!--Account-->
+    <string name="my_ordered">我的订单</string>
+    <string name="check_my_ordered">查看全部 ></string>
+    <string name="wait_pay">待付款</string>
+    <string name="wait_send">待发货</string>
+    <string name="has_send">待收货</string>
+    <string name="wait_appraise">待评价</string>
+
+    <string name="neccessaryTools">必备工具</string>
+    <string name="my_money">我的资产</string>
+    <string name="vip_center">会员中心</string>
+    <string name="free_use">免费试用</string>
+    <string name="telephone_fare">话费充值</string>
+    <string name="my_mi">我的小蜜</string>
+    <string name="ticket">机票火车票</string>
+    <string name="vip_mark">会员积分</string>
 </resources>
