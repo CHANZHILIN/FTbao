@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.jinbiao.ftbao.MainActivity;
 import com.example.jinbiao.ftbao.R;
 
 import butterknife.BindView;
@@ -46,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
             case R.id.btn_eye:
                 break;
             case R.id.btn_login:
+                startActivity(new Intent(LoginActivity.this,MainActivity.class));
                 break;
             case R.id.tv_resister:
                 Intent intent=new Intent();

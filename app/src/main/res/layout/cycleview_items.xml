@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="1dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:id="@+id/cv_item_list"
+    android:foreground="?android:attr/selectableItemBackground"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="4dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+          <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:scaleType="fitCenter"
+              android:src="@drawable/test"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/business"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="真维斯官方旗舰店 "/>
+                <ImageView
+                    android:id="@+id/business_logo"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/business_logo"/>
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/introduce"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="2"
+                android:textSize="14sp"
+                android:ellipsize="end"
+                android:text="Jeanswest/真维斯 夏装 男装纯棉简约V领修身纯色打底衫短袖T恤JE-60-173002(2280 橙梅红)"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/sale_logo"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/sale_logo"/>
+                <TextView
+                    android:id="@+id/sale"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:textSize="14sp"
+                    android:ellipsize="end"
+                    android:text="指定商品69.9元任选2件！ "/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_weight="7"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/mess_logo"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/mes"/>
+                    <TextView
+                        android:id="@+id/mes_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="@color/rb_text_color_normal"
+                        android:text="159 "/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/dig_logo"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/pro_dig"/>
+                <TextView
+                    android:id="@+id/dig_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/rb_text_color_normal"
+                    android:text="159 "/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/rb_text_color_normal"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:src="@drawable/test"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/business_other"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="真维斯官方旗舰店 "/>
+                <ImageView
+                    android:id="@+id/business_logo_other"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/business_logo"/>
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/introduce_other"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="2"
+                android:textSize="14sp"
+                android:ellipsize="end"
+                android:text="Jeanswest/真维斯 夏装 男装纯棉简约V领修身纯色打底衫短袖T恤JE-60-173002(2280 橙梅红)"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/sale_logo_other"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/sale_logo"/>
+                <TextView
+                    android:id="@+id/sale_other"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:textSize="14sp"
+                    android:ellipsize="end"
+                    android:text="指定商品69.9元任选2件！ "/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_weight="7"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/mess_logo_other"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/mes"/>
+                    <TextView
+                        android:id="@+id/mes_count_other"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="@color/rb_text_color_normal"
+                        android:text="159 "/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/dig_logo_other"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/pro_dig"/>
+                    <TextView
+                        android:id="@+id/dig_count_other"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="@color/rb_text_color_normal"
+                        android:text="159 "/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>
