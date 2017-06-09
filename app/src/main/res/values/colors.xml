@@ -10,4 +10,17 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="gray">#666666</color>
+
+
+
+
+
+
+
+    <color name="colorwhite">#ffffff</color>
+    <color name="colorgray">#e1777980</color>
+    <color name="colorlightgray">#b7b6b6</color>
+    <color name="colorblack">#262525</color>
+    <color name="color_login_normal">#ab1012</color>
+    <color name="color_login_press">#dc2123</color>
 </resources>

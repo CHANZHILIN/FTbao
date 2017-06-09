@@ -73,6 +73,8 @@
                             android:src="@mipmap/notify_small_icon"
                             />
                         <TextView
+                            android:id="@+id/user_name"
+                            android:clickable="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="10dp"
@@ -138,8 +140,8 @@
                     android:padding="5dp"
                     android:orientation="horizontal">
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:text="@string/my_ordered"
                         android:layout_weight="1"
                         android:layout_marginTop="5dp"
