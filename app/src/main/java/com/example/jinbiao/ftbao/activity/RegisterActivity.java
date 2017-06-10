@@ -1,28 +1,19 @@
 package com.example.jinbiao.ftbao.activity;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.util.Log;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.jinbiao.ftbao.MainActivity;
 import com.example.jinbiao.ftbao.R;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
-
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends Activity {
 
 
     private static final String APPKEY = "1e854464cbf98";
@@ -35,14 +26,14 @@ public class RegisterActivity extends AppCompatActivity {
     TextView getPhoneCode;
     @BindView(R.id.btn_register)
     Button btnRegister;
-    int i = 10;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        initSDK();
+        initSMSSDK();
         ButterKnife.bind(this);
 
 
@@ -51,102 +42,100 @@ public class RegisterActivity extends AppCompatActivity {
 
     @OnClick({R.id.get_phone_code, R.id.btn_register})
     public void onViewClicked(View view) {
-        String phoneNums=etPhone.getText().toString().trim();
+
         switch (view.getId()) {
             case R.id.get_phone_code:
-                // 1. 通过规则判断手机号
-                if (TextUtils.isEmpty(phoneNums)) {
-                    Toast.makeText(getApplicationContext(), "手机号不能为空", Toast.LENGTH_SHORT).show();
-                    return;
-                } // 2. 通过sdk发送短信验证
-                SMSSDK.getVerificationCode("86", phoneNums);
+                if (validatePhone()) {
+                    //启动获取验证码 86是中国
+                    String phone = etPhone.getText().toString().trim();
+                    SMSSDK.getVerificationCode("86", phone);//发送短信验证码到手机号
+                    timer.start();//使用计时器 设置验证码的时间限制
+                }
 
-                // 3. 把按钮变成不可点击，并且显示倒计时（正在获取）
-                getPhoneCode.setClickable(false);
-                getPhoneCode.setText("重新发送(" + i-- + ")");
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        for (int i = 30; i > 0; i--) {
-                            handler.sendEmptyMessage(-9);
-                            if (i <= 0) {
-                                break;
-                            }
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        handler.sendEmptyMessage(-8);
-                    }
-                }).start();
                 break;
             case R.id.btn_register:
+                submitInfo();
                 break;
         }
     }
 
 
-
-    private void initSDK() {
-        SMSSDK.initSDK(this, APPKEY, APPSECRET);
-        EventHandler eventHandler = new EventHandler() {
-            /**
-             * 在操作之后被触发
-             *
-             * @param event
-             *            参数1
-             * @param result
-             *            参数2 SMSSDK.RESULT_COMPLETE表示操作成功，为SMSSDK.
-             *            RESULT_ERROR表示操作失败
-             * @param data
-             *            事件操作的结果
-             */
-            @Override
-            public void afterEvent(int event, int result, Object data) {
-                Message msg = new Message();
-                msg.arg1 = event;
-                msg.arg2 = result;
-                msg.obj = data;
-                handler.sendMessage(msg);
-            }
-        };
-        // 注册回调监听接口
-        SMSSDK.registerEventHandler(eventHandler);
-
+        /**
+         * 验证手机号码是否符合要求，11位 并且没有注册过
+         *
+         * @return 是否符合要求
+         */
+    private boolean validatePhone() {
+        String phone = etPhone.getText().toString().trim();
+        return true;
     }
 
-    Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            if (msg.what == -9) {
-                getPhoneCode.setText("重新发送(" + i-- + ")");
-            } else if (msg.what == -8) {
-                getPhoneCode.setText("获取验证码");
-                getPhoneCode.setClickable(true);
-            } else {
-                int event = msg.arg1;
-                int result = msg.arg2;
-                Object data = msg.obj;
-                Log.e("event", "event=" + event);
-                if (result == SMSSDK.RESULT_COMPLETE) {
-                    // 短信注册成功后，返回MainActivity,然后提示新好友
-                    if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {// 提交验证码成功
-                        Toast.makeText(getApplicationContext(), "提交验证码成功",
-                                Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(RegisterActivity.this,
-                                MainActivity.class);
-                        startActivity(intent);
-                    } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
-                        Toast.makeText(getApplicationContext(), "验证码已经发送",
-                                Toast.LENGTH_SHORT).show();
-                    } else {
-                        ((Throwable) data).printStackTrace();
-                    }
-                }
-            }
+
+
+    /**
+     * 验证用户的其他信息
+     * 这里验证两次密码是否一致 以及验证码判断
+     */
+    private void submitInfo() {
+        //密码验证
+        System.out.println("提交按钮点击了");
+        String phone = etPhone.getText().toString().trim();
+        String code = etCode.getText().toString().trim();
+        SMSSDK.submitVerificationCode("86", phone, code);//提交验证码  在eventHandler里面查看验证结果
+    }
+
+
+    /**
+     * 使用计时器来限定验证码
+     * 在发送验证码的过程 不可以再次申请获取验证码 在指定时间之后没有获取到验证码才能重新进行发送
+     * 这里限定的时间是60s
+     */
+    private CountDownTimer timer = new CountDownTimer(60000, 1000) {
+        @Override
+        public void onTick(long millisUntilFinished) {
+            getPhoneCode.setEnabled(false);
+            getPhoneCode.setText((millisUntilFinished / 1000) + "秒后重试");
+        }
+
+        @Override
+        public void onFinish() {
+             getPhoneCode.setEnabled(true);
+            getPhoneCode.setText("获取验证码");
         }
     };
+
+
+
+
+
+    private void initSMSSDK() {
+        //初始化短信验证
+        SMSSDK.initSDK(this, APPKEY, APPSECRET);
+
+        //注册短信回调
+        SMSSDK.registerEventHandler(new EventHandler() {
+            @Override
+            public void afterEvent(int event, int result, Object data) {
+                switch (event) {
+                    case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE:
+                        if (result == SMSSDK.RESULT_COMPLETE) {
+                            System.out.println("验证成功");
+                        } else {
+                            System.out.println("验证失败");
+                        }
+                        break;
+                    case SMSSDK.EVENT_GET_VERIFICATION_CODE:
+                        if (result == SMSSDK.RESULT_COMPLETE) {
+                            System.out.println("获取验证成功");
+                        } else {
+                            System.out.println("获取验证失败");
+                        }
+                        break;
+                }
+            }
+        });
+    }
+
 
 
 
