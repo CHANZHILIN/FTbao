@@ -62,6 +62,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="请输入手机号"
+            android:inputType="phone"
+            android:maxLength="11"
             android:textColorHint="@color/colorgray" />
 
         <Button

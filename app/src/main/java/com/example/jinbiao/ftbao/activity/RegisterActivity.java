@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.example.jinbiao.ftbao.R;
+import com.example.jinbiao.ftbao.utils.ToastUtils;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -67,7 +69,12 @@ public class RegisterActivity extends Activity {
          */
     private boolean validatePhone() {
         String phone = etPhone.getText().toString().trim();
-        return true;
+        if (phone.length() < 11) {
+            ToastUtils.toastShort(getApplicationContext(),"情输入正确的手机号码");
+        }else {
+            return true;
+        }
+        return false;
     }
 
 
