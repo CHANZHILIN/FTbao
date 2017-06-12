@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.example.jinbiao.ftbao.bean.ADInfo;
 import com.example.jinbiao.ftbao.bean.TshirtData;
 import com.example.jinbiao.ftbao.pager.cycleviewpager.CycleViewPager;
 import com.example.jinbiao.ftbao.utils.ViewFactory;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-
+    private static final String TAG = "ReCycleViewAdpater";
     private List<ImageView> views = new ArrayList<ImageView>();
     private List<ADInfo> infos = new ArrayList<ADInfo>();
     private LayoutInflater mLayoutInflater;
@@ -71,8 +72,24 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
 //            ((Item2ViewHolder) holder).mTextView.setText(titles[position]);
 
         } else if (holder instanceof Item3ViewHolder) {
-//            ((Item3ViewHolder) holder).mTextView.setText(titles[position]);
-            ((Item3ViewHolder) holder).business.setText(tshirts.get(position-2).get(0).getStorename());
+            List<TshirtData.Tshirt>list=tshirts.get(position - 2);
+            ImageLoader.getInstance().displayImage(list.get(0).getImgurl(), ((Item3ViewHolder) holder).imgLeft); // imageUrl代表图片的URL地址，imageView代表承载图片的IMAGEVIEW控件
+            ((Item3ViewHolder) holder).business.setText(list.get(0).getStorename());
+            ((Item3ViewHolder) holder).introduce.setText(list.get(0).getProinfo());
+            ((Item3ViewHolder) holder).sale.setText(list.get(0).getProact());
+            ((Item3ViewHolder) holder).mesCount.setText(list.get(0).getCommentcount());
+            ((Item3ViewHolder) holder).digCount.setText(list.get(0).getGoodcomment());
+            ((Item3ViewHolder) holder).price.setText(list.get(0).getPrice());
+            Log.d(TAG, "onBindViewHolder: "+list.size());
+            if(list.size()==2){
+                ImageLoader.getInstance().displayImage(list.get(1).getImgurl(), ((Item3ViewHolder) holder).imgRight); // imageUrl代表图片的URL地址，imageView代表承载图片的IMAGEVIEW控件
+                ((Item3ViewHolder) holder).businessOther.setText(list.get(1).getStorename());
+                ((Item3ViewHolder) holder).introduceOther.setText(list.get(1).getProinfo());
+                ((Item3ViewHolder) holder).saleOther.setText(list.get(1).getProact());
+                ((Item3ViewHolder) holder).mesCountOther.setText(list.get(1).getCommentcount());
+                ((Item3ViewHolder) holder).digCountOther.setText(list.get(1).getGoodcomment());
+                ((Item3ViewHolder) holder).priceOther.setText(list.get(1).getPrice());
+            }
         }
     }
 
@@ -103,12 +120,10 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     //item2 的ViewHolder
     public static class Item2ViewHolder extends RecyclerView.ViewHolder {
-        //        TextView mTextView;
         public Item2ViewHolder(View itemView) {
             super(itemView);
             //先与viewholder绑定才能找到view
             ButterKnife.bind(this, itemView);
-//            mTextView=(TextView)itemView.findViewById(R.id.tv_item2_text);
         }
     }
 
@@ -126,6 +141,8 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
         ImageView saleLogo;
         @BindView(R.id.sale)
         TextView sale;
+        @BindView(R.id.price)
+        TextView price;
         @BindView(R.id.mess_logo)
         ImageView messLogo;
         @BindView(R.id.mes_count)
@@ -146,6 +163,8 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
         ImageView saleLogoOther;
         @BindView(R.id.sale_other)
         TextView saleOther;
+        @BindView(R.id.price_other)
+        TextView priceOther;
         @BindView(R.id.mess_logo_other)
         ImageView messLogoOther;
         @BindView(R.id.mes_count_other)
@@ -154,6 +173,9 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
         ImageView digLogoOther;
         @BindView(R.id.dig_count_other)
         TextView digCountOther;
+        @BindView(R.id.cv_item_list)
+        CardView cvItemList;
+
         public Item3ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

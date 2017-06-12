@@ -80,7 +80,7 @@ private static final String TAG = "HomeFragment";
                 for (int i = 0; i <tshirtlist.size() ; i++) {
                     TshirtData.Tshirt tshirt =tshirtlist.get(i);
                     list.add(tshirt);
-                   if(i%2==0){
+                   if((i+1)%2==0){
                        lists.add(list);
                        list =new ArrayList<TshirtData.Tshirt>();
                    }
