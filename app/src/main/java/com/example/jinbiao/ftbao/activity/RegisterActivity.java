@@ -7,14 +7,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import com.example.jinbiao.ftbao.R;
 import com.example.jinbiao.ftbao.utils.ToastUtils;
+
+import java.net.URI;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
+
 public class RegisterActivity extends Activity {
 
 
@@ -41,7 +45,6 @@ public class RegisterActivity extends Activity {
 
     }
 
-
     @OnClick({R.id.get_phone_code, R.id.btn_register})
     public void onViewClicked(View view) {
 
@@ -62,21 +65,20 @@ public class RegisterActivity extends Activity {
     }
 
 
-        /**
-         * 验证手机号码是否符合要求，11位 并且没有注册过
-         *
-         * @return 是否符合要求
-         */
+    /**
+     * 验证手机号码是否符合要求，11位 并且没有注册过
+     *
+     * @return 是否符合要求
+     */
     private boolean validatePhone() {
         String phone = etPhone.getText().toString().trim();
         if (phone.length() < 11) {
-            ToastUtils.toastShort(getApplicationContext(),"情输入正确的手机号码");
-        }else {
+            ToastUtils.toastShort(getApplicationContext(), "情输入正确的手机号码");
+        } else {
             return true;
         }
         return false;
     }
-
 
 
     /**
@@ -85,7 +87,6 @@ public class RegisterActivity extends Activity {
      */
     private void submitInfo() {
         //密码验证
-        System.out.println("提交按钮点击了");
         String phone = etPhone.getText().toString().trim();
         String code = etCode.getText().toString().trim();
         SMSSDK.submitVerificationCode("86", phone, code);//提交验证码  在eventHandler里面查看验证结果
@@ -106,13 +107,10 @@ public class RegisterActivity extends Activity {
 
         @Override
         public void onFinish() {
-             getPhoneCode.setEnabled(true);
+            getPhoneCode.setEnabled(true);
             getPhoneCode.setText("获取验证码");
         }
     };
-
-
-
 
 
     private void initSMSSDK() {
@@ -131,11 +129,23 @@ public class RegisterActivity extends Activity {
                             System.out.println("验证失败");
                         }
                         break;
+
+                        /*
+                        * 智能验证依然在获取短信验证的api（SMSSDK.getVerificationCode）里，
+                        * 只是操作回调中，需要判断一下。当result=SMSSDK.RESULT_COMPLETE，
+                        * 则data的类型为Boolean，你需要判断一下，如果为true，便是智能验证。
+                        */
                     case SMSSDK.EVENT_GET_VERIFICATION_CODE:
                         if (result == SMSSDK.RESULT_COMPLETE) {
-                            System.out.println("获取验证成功");
-                        } else {
-                            System.out.println("获取验证失败");
+                            boolean smart = (Boolean)data;
+                            if(smart) {
+                                //通过智能验证
+                                ToastUtils.toastShort(getApplicationContext(),"手机号已注册");
+                                System.out.println("获取验证成功");
+                            } else {
+                                //依然走短信验证
+                                System.out.println("获取验证失败");
+                            }
                         }
                         break;
                 }
@@ -146,13 +156,13 @@ public class RegisterActivity extends Activity {
 
 
 
+
     @Override
     protected void onDestroy() {
+
         super.onDestroy();
-        //
         SMSSDK.unregisterAllEventHandler();
     }
-
 
 
 }
