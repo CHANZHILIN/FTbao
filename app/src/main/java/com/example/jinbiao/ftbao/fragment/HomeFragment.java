@@ -31,11 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomeFragment extends BaseFragment {
 
-/*
-    private List<ImageView> views = new ArrayList<ImageView>();
-    private List<ADInfo> infos = new ArrayList<ADInfo>();
-    private CycleViewPager cycleViewPager;
-*/
+
 private static final String TAG = "HomeFragment";
     private FragmentManager fragmentManager;
     private RecyclerView.LayoutManager mLayoutManager;
