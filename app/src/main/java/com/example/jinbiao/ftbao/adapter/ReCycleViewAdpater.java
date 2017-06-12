@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.jinbiao.ftbao.R;
 import com.example.jinbiao.ftbao.bean.ADInfo;
+import com.example.jinbiao.ftbao.bean.TshirtData;
 import com.example.jinbiao.ftbao.pager.cycleviewpager.CycleViewPager;
 import com.example.jinbiao.ftbao.utils.ViewFactory;
 
@@ -23,15 +24,17 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
     private LayoutInflater mLayoutInflater;
     private Context context;
     private FragmentManager fragmentManager;
-    private String [] titles;
+    private List<List<TshirtData.Tshirt>> tshirts;
+    private String [] bannerlist;
     //建立枚举 2个item 类型
     public enum ITEM_TYPE {
         ITEM1,
         ITEM2,
         ITEM3
     }
-    public ReCycleViewAdpater(Context context, FragmentManager fragmentManager, String[] titles){
-        this.titles = titles;
+    public ReCycleViewAdpater(Context context, FragmentManager fragmentManager, List<List<TshirtData.Tshirt>> tshirts, String[] bannerlist){
+        this.tshirts=tshirts;
+        this.bannerlist = bannerlist;
         this.context = context;
         this.fragmentManager=fragmentManager;
         mLayoutInflater = LayoutInflater.from(context);
@@ -67,7 +70,7 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
     @Override
     public int getItemCount() {
-        return titles == null ? 0 : titles.length;
+        return tshirts == null ? 0 : tshirts.size()+2;
     }
     //item1 的ViewHolder
     public class Item1ViewHolder extends RecyclerView.ViewHolder{
@@ -95,9 +98,9 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
     private void cycleViewPagerOn(final CycleViewPager cycleViewPager){
-        for(int i = 0; i < titles.length; i ++){
+        for(int i = 0; i < bannerlist.length; i ++){
             ADInfo info = new ADInfo();
-            info.setUrl(titles[i]);
+            info.setUrl(bannerlist[i]);
             info.setContent("图片-->" + i );
             infos.add(info);
         }

@@ -52,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lines="2"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:ellipsize="end"
                 android:text="Jeanswest/真维斯 夏装 男装纯棉简约V领修身纯色打底衫短袖T恤JE-60-173002(2280 橙梅红)"/>
 
@@ -71,7 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lines="1"
-                    android:textSize="14sp"
+                    android:textSize="10sp"
                     android:ellipsize="end"
                     android:text="指定商品69.9元任选2件！ "/>
 
@@ -160,7 +160,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lines="2"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:ellipsize="end"
                 android:text="Jeanswest/真维斯 夏装 男装纯棉简约V领修身纯色打底衫短袖T恤JE-60-173002(2280 橙梅红)"/>
 
@@ -179,7 +179,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lines="1"
-                    android:textSize="14sp"
+                    android:textSize="10sp"
                     android:ellipsize="end"
                     android:text="指定商品69.9元任选2件！ "/>
 
