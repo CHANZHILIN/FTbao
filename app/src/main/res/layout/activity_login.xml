@@ -51,17 +51,22 @@
 
         <TextView
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center|left"
             android:text="@string/accountname"
             android:textColor="@color/colorblack" />
+<android.support.design.widget.TextInputLayout
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/et_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_account"
+        android:textColorHint="@color/colorgray" />
 
-        <EditText
-            android:id="@+id/et_account"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:hint="@string/hint_account"
-            android:textColorHint="@color/colorgray" />
+</android.support.design.widget.TextInputLayout>
 
 
 
@@ -80,17 +85,25 @@
         android:orientation="horizontal">
         <TextView
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center|left"
             android:textColor="@color/colorblack"
             android:text="@string/password" />
-        <EditText
-            android:id="@+id/et_password"
-            android:hint="@string/hint_password"
-            android:textColorHint="@color/colorgray"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:inputType="textPassword"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <EditText
+                android:id="@+id/et_password"
+                android:hint="@string/hint_password"
+                android:textColorHint="@color/colorgray"
+                android:layout_width="match_parent"
+
+                android:inputType="textPassword"
+                android:layout_height="wrap_content" />
+
+        </android.support.design.widget.TextInputLayout>
+
 
         <Button
             android:id="@+id/btn_eye"

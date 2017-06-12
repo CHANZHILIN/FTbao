@@ -11,9 +11,18 @@ import android.widget.TextView;
 import com.example.jinbiao.ftbao.MainActivity;
 import com.example.jinbiao.ftbao.R;
 
+import java.io.IOException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -29,6 +38,8 @@ public class LoginActivity extends AppCompatActivity {
     TextView tvResister;
     @BindView(R.id.tv_findpassword)
     TextView tvFindpassword;
+
+    private OkHttpClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,4 +70,31 @@ public class LoginActivity extends AppCompatActivity {
                 break;
         }
     }
+
+    private void postRequest(String username,String password){
+        client =new OkHttpClient();
+        //建立请求表单，添加发送到服务器的数据
+        RequestBody formBody = new FormBody.Builder()
+                .add("username",username)
+                .add("password",password)
+                .build();
+        //发起请求
+        Request request = new Request.Builder()
+                .url("")
+                .post(formBody)
+                .build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+            }
+        });
+    }
+
 }

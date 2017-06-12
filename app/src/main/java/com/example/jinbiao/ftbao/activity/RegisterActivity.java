@@ -7,17 +7,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jinbiao.ftbao.R;
 import com.example.jinbiao.ftbao.utils.ToastUtils;
 
-import java.net.URI;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class RegisterActivity extends Activity {
 
@@ -32,6 +40,12 @@ public class RegisterActivity extends Activity {
     TextView getPhoneCode;
     @BindView(R.id.btn_register)
     Button btnRegister;
+    @BindView(R.id.et_password)
+    EditText etPassword;
+    @BindView(R.id.et_confirmpasswd)
+    EditText etConfirmpasswd;
+
+    private OkHttpClient client;
 
 
     @Override
@@ -89,9 +103,14 @@ public class RegisterActivity extends Activity {
         //密码验证
         String phone = etPhone.getText().toString().trim();
         String code = etCode.getText().toString().trim();
-        SMSSDK.submitVerificationCode("86", phone, code);//提交验证码  在eventHandler里面查看验证结果
+        String password = etPassword.getText().toString();
+        String confirmpassword = etConfirmpasswd.getText().toString();
+        if (!password.equals(confirmpassword)) {
+            ToastUtils.toastShort(getApplicationContext(), "密码不一致");
+        } else {
+            SMSSDK.submitVerificationCode("86", phone, code);//提交验证码  在eventHandler里面查看验证结果
+        }
     }
-
 
     /**
      * 使用计时器来限定验证码
@@ -101,13 +120,13 @@ public class RegisterActivity extends Activity {
     private CountDownTimer timer = new CountDownTimer(60000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
-            getPhoneCode.setEnabled(false);
+            getPhoneCode.setClickable(false);
             getPhoneCode.setText((millisUntilFinished / 1000) + "秒后重试");
         }
 
         @Override
         public void onFinish() {
-            getPhoneCode.setEnabled(true);
+            getPhoneCode.setClickable(true);
             getPhoneCode.setText("获取验证码");
         }
     };
@@ -126,7 +145,7 @@ public class RegisterActivity extends Activity {
                         if (result == SMSSDK.RESULT_COMPLETE) {
                             System.out.println("验证成功");
                         } else {
-                            System.out.println("验证失败");
+                            System.out.println("验证码错误");
                         }
                         break;
 
@@ -137,10 +156,9 @@ public class RegisterActivity extends Activity {
                         */
                     case SMSSDK.EVENT_GET_VERIFICATION_CODE:
                         if (result == SMSSDK.RESULT_COMPLETE) {
-                            boolean smart = (Boolean)data;
-                            if(smart) {
+                            boolean smart = (Boolean) data;
+                            if (smart) {
                                 //通过智能验证
-                                ToastUtils.toastShort(getApplicationContext(),"手机号已注册");
                                 System.out.println("获取验证成功");
                             } else {
                                 //依然走短信验证
@@ -154,7 +172,33 @@ public class RegisterActivity extends Activity {
     }
 
 
+    private void postRequest(String phone, String code, String password) {
 
+        client = new OkHttpClient();
+        //建立请求表单，添加发送到服务器的数据
+        RequestBody formBody = new FormBody.Builder()
+                .add("phone", phone)
+                .add("code", code)
+                .add("password", password)
+                .build();
+        //发起请求
+        Request request = new Request.Builder()
+                .url("")
+                .post(formBody)
+                .build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+            }
+        });
+    }
 
 
     @Override
@@ -163,6 +207,8 @@ public class RegisterActivity extends Activity {
         super.onDestroy();
         SMSSDK.unregisterAllEventHandler();
     }
+
+
 
 
 }

@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@color/color_login_press" android:state_pressed="true">
+    <item  android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/color_login_press"/>
+            <corners android:radius="8dip"/>
+        </shape>
 
     </item>
-    <item android:drawable="@color/color_login_normal" android:state_pressed="false">
-
+    <item android:state_pressed="false">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/color_login_normal"/>
+            <corners android:radius="8dip"/>
+        </shape>
     </item>
 
 
