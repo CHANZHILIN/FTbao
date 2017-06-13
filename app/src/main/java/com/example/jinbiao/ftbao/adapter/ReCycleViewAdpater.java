@@ -26,7 +26,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final String TAG = "ReCycleViewAdpater";
     private List<ImageView> views = new ArrayList<ImageView>();
     private List<ADInfo> infos = new ArrayList<ADInfo>();
     private LayoutInflater mLayoutInflater;
@@ -35,6 +34,9 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
     private List<List<TshirtData.Tshirt>> tshirts;
     private String[] bannerlist;
 
+    public void setTshirts(List<List<TshirtData.Tshirt>> tshirts){
+        this.tshirts.addAll(tshirts);
+    }
     //建立枚举 2个item 类型
     public enum ITEM_TYPE {
         ITEM1,
@@ -80,7 +82,6 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
             ((Item3ViewHolder) holder).mesCount.setText(list.get(0).getCommentcount());
             ((Item3ViewHolder) holder).digCount.setText(list.get(0).getGoodcomment());
             ((Item3ViewHolder) holder).price.setText(list.get(0).getPrice());
-            Log.d(TAG, "onBindViewHolder: "+list.size());
             if(list.size()==2){
                 ImageLoader.getInstance().displayImage(list.get(1).getImgurl(), ((Item3ViewHolder) holder).imgRight); // imageUrl代表图片的URL地址，imageView代表承载图片的IMAGEVIEW控件
                 ((Item3ViewHolder) holder).businessOther.setText(list.get(1).getStorename());
