@@ -31,11 +31,9 @@
 
     <string name="help">帮助</string>
     <string name="accountname">账户</string>
-    <string name="password">登录密码</string>
-    <string name="hint_account">淘宝会员账号</string>
-    <string name="hint_password">请输入密码</string>
+    <string name="password">密码</string>
     <string name="login">登录</string>
-    <string name="registeruser">新用户注册</string>
+    <string name="registeruser">用户注册</string>
     <string name="findpassword">找回密码</string>
 
 
