@@ -5,10 +5,75 @@
     android:orientation="vertical"
     tools:context="com.example.jinbiao.ftbao.fragment.HomeFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/cart"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:padding="5dp"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:text="@string/my_cart"/>
+            <Button
+                android:id="@+id/edit_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_marginTop="10dp"
+                android:text="@string/cart_edit"/>
 
+        </LinearLayout>
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_cart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scrollbars="vertical"
+            />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#eee"
+        android:orientation="horizontal"
+        >
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/select_all"
+            android:padding="15dp"
+            android:textSize="18sp"
+            android:drawableLeft="@drawable/cart_item_selector"
+            android:layout_weight="1"
+            android:checked="false"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/count_all"/>
+        <TextView
+            android:paddingEnd="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/accountActionBar"
+            android:text="￥:0.0"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:background="@color/accountActionBar"
+                android:text="@string/cal"/>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
