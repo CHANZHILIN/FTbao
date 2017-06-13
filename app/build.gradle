@@ -41,6 +41,6 @@ dependencies {
     compile files('libs/MobCommons-2017.0321.1624.jar')
     compile files('libs/MobTools-2017.0321.1624.jar')
     compile name: 'SMSSDK-2.1.4', ext: 'aar'
+    compile name: 'SMSSDKGUI-2.1.4', ext: 'aar'
     compile 'com.android.support:recyclerview-v7:25.0.+'
-    compile 'com.squareup.okhttp3:okhttp:3.8.0'
 }
