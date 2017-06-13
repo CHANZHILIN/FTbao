@@ -2,6 +2,7 @@ package com.example.jinbiao.ftbao.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,6 +58,9 @@ public class DiscoveryFragment extends BaseFragment {
     }
 
     private void initAdapter(){
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
         mAdapter = new DiscoveryAdapter(getActivity(),images);
         recyclerView.setAdapter(mAdapter);
     }
