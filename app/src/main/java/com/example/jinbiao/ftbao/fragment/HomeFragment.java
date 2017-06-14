@@ -1,6 +1,7 @@
 package com.example.jinbiao.ftbao.fragment;
 
 import android.app.FragmentManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,9 +20,12 @@ import android.widget.Toast;
 import com.example.jinbiao.ftbao.R;
 import com.example.jinbiao.ftbao.adapter.ReCycleViewAdpater;
 import com.example.jinbiao.ftbao.base.BaseFragment;
+import com.example.jinbiao.ftbao.bean.Tshirt;
 import com.example.jinbiao.ftbao.bean.TshirtData;
 import com.example.jinbiao.ftbao.interFace.ITshirt;
 import com.example.jinbiao.ftbao.utils.Constant;
+
+import org.litepal.tablemanager.Connector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +51,7 @@ private static final String TAG = "HomeFragment";
     SwipeRefreshLayout swiperefreshlayout;
     @BindView(R.id.my_recycler_view)
     RecyclerView recyclerView;
-    List<List<TshirtData.Tshirt>> lists=new ArrayList<>();
+    List<List<Tshirt>> lists=new ArrayList<>();
     private Handler handler =new Handler(Looper.getMainLooper());
     private static int currentpage=1;
     private int lastVisibleItem;
@@ -74,6 +78,7 @@ private static final String TAG = "HomeFragment";
         initView(view);
         getData();
         initAdapter();
+        SQLiteDatabase db = Connector.getDatabase();
         return view;
     }
 
@@ -105,15 +110,15 @@ private static final String TAG = "HomeFragment";
         });
     }
 
-    private List<List<TshirtData.Tshirt>> getTshirtList(List<TshirtData.Tshirt> tshirtlist){
-        List<List<TshirtData.Tshirt>> lists=new ArrayList<List<TshirtData.Tshirt>>();
-        List<TshirtData.Tshirt> list =new ArrayList<TshirtData.Tshirt>();
+    private List<List<Tshirt>> getTshirtList(List<Tshirt> tshirtlist){
+        List<List<Tshirt>> lists=new ArrayList<List<Tshirt>>();
+        List<Tshirt> list =new ArrayList<Tshirt>();
         for (int i = 0; i <tshirtlist.size() ; i++) {
-            TshirtData.Tshirt tshirt =tshirtlist.get(i);
+            Tshirt tshirt =tshirtlist.get(i);
             list.add(tshirt);
             if((i+1)%2==0){
                 lists.add(list);
-                list =new ArrayList<TshirtData.Tshirt>();
+                list =new ArrayList<Tshirt>();
             }
         }
         return lists;

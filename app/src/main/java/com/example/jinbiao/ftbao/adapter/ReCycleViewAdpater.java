@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.jinbiao.ftbao.R;
 import com.example.jinbiao.ftbao.bean.ADInfo;
+import com.example.jinbiao.ftbao.bean.Tshirt;
 import com.example.jinbiao.ftbao.bean.TshirtData;
 import com.example.jinbiao.ftbao.pager.cycleviewpager.CycleViewPager;
 import com.example.jinbiao.ftbao.utils.ViewFactory;
@@ -32,10 +33,10 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
     private LayoutInflater mLayoutInflater;
     private Context context;
     private FragmentManager fragmentManager;
-    private List<List<TshirtData.Tshirt>> tshirts;
+    private List<List<Tshirt>> tshirts;
     private String[] bannerlist;
 
-    public void setTshirts(List<List<TshirtData.Tshirt>> tshirts){
+    public void setTshirts(List<List<Tshirt>> tshirts){
         this.tshirts.addAll(tshirts);
     }
     //建立枚举 3个item 类型
@@ -45,7 +46,7 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
         ITEM3
     }
 
-    public ReCycleViewAdpater(Context context, FragmentManager fragmentManager, List<List<TshirtData.Tshirt>> tshirts, String[] bannerlist) {
+    public ReCycleViewAdpater(Context context, FragmentManager fragmentManager, List<List<Tshirt>> tshirts, String[] bannerlist) {
         this.tshirts = tshirts;
         this.bannerlist = bannerlist;
         this.context = context;
@@ -75,7 +76,7 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
 //            ((Item2ViewHolder) holder).mTextView.setText(titles[position]);
 
         } else if (holder instanceof Item3ViewHolder) {
-            List<TshirtData.Tshirt>list=tshirts.get(position - 2);
+            List<Tshirt>list=tshirts.get(position - 2);
             ImageLoader.getInstance().displayImage(list.get(0).getImgurl(), ((Item3ViewHolder) holder).imgLeft); // imageUrl代表图片的URL地址，imageView代表承载图片的IMAGEVIEW控件
             ((Item3ViewHolder) holder).business.setText(list.get(0).getStorename());
             ((Item3ViewHolder) holder).introduce.setText(list.get(0).getProinfo());
