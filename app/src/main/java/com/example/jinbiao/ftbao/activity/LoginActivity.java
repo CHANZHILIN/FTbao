@@ -65,7 +65,6 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(this, RegisterActivity.class);
                 startActivity(intent);
-
                 break;
             case R.id.tv_findpassword:
                 break;
