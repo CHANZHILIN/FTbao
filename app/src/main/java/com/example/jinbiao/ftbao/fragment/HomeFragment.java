@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.jinbiao.ftbao.R;
 import com.example.jinbiao.ftbao.adapter.ReCycleViewAdpater;
@@ -50,7 +51,10 @@ private static final String TAG = "HomeFragment";
     private Handler handler =new Handler(Looper.getMainLooper());
     private static int currentpage=1;
     private int lastVisibleItem;
-    private String[] bannerlist = {"http://img.taodiantong.cn/v55183/infoimg/2013-07/130720115322ky.jpg",
+    //如果当前是刷新状态就设置为false
+    private static boolean refreshing=true;
+    private String[] bannerlist = {
+            "http://img.taodiantong.cn/v55183/infoimg/2013-07/130720115322ky.jpg",
             "http://pic30.nipic.com/20130626/8174275_085522448172_2.jpg",
             "http://pic18.nipic.com/20111215/577405_080531548148_2.jpg",
             "http://pic15.nipic.com/20110722/2912365_092519919000_2.jpg",
@@ -78,15 +82,19 @@ private static final String TAG = "HomeFragment";
                 .baseUrl(Constant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        final ITshirt tshirts = retrofit.create(ITshirt.class);
+        ITshirt tshirts = retrofit.create(ITshirt.class);
         Call<TshirtData> call = tshirts.getTshirts(Constant.PAGE_SIZE,currentpage);
         call.enqueue(new Callback<TshirtData>(){
             @Override
             public void onResponse(Call<TshirtData> call, Response<TshirtData> response)
             {
-                mAdapter.setTshirts(getTshirtList(response.body().getData()));
-                mAdapter.notifyDataSetChanged();
-                currentpage++;
+                if(getTshirtList(response.body().getData()).size()>0){
+                    mAdapter.setTshirts(getTshirtList(response.body().getData()));
+                    mAdapter.notifyDataSetChanged();
+                    currentpage++;
+                    refreshing=true;
+                }else
+                    Toast.makeText(getContext(),"暂无新的数据",Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -141,8 +149,10 @@ private static final String TAG = "HomeFragment";
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
-            if (newState ==RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 ==mAdapter.getItemCount()) {
+            //当不是在刷新状态、滑动停止（SCROLL_STATE_IDLE）和是最后一个Item的时候，才能上拉刷新
+            if (refreshing&&newState ==RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 ==mAdapter.getItemCount()) {
                 swiperefreshlayout.setRefreshing(true);
+                refreshing=false;
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {

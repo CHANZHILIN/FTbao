@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,7 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void setTshirts(List<List<TshirtData.Tshirt>> tshirts){
         this.tshirts.addAll(tshirts);
     }
-    //建立枚举 2个item 类型
+    //建立枚举 3个item 类型
     public enum ITEM_TYPE {
         ITEM1,
         ITEM2,
@@ -78,23 +79,29 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
             ImageLoader.getInstance().displayImage(list.get(0).getImgurl(), ((Item3ViewHolder) holder).imgLeft); // imageUrl代表图片的URL地址，imageView代表承载图片的IMAGEVIEW控件
             ((Item3ViewHolder) holder).business.setText(list.get(0).getStorename());
             ((Item3ViewHolder) holder).introduce.setText(list.get(0).getProinfo());
-            ((Item3ViewHolder) holder).sale.setText(list.get(0).getProact());
-            ((Item3ViewHolder) holder).mesCount.setText(list.get(0).getCommentcount());
-            ((Item3ViewHolder) holder).digCount.setText(list.get(0).getGoodcomment());
+            ((Item3ViewHolder) holder).sale.setText(list.get(0).getProact()==""?"暂无促销信息":list.get(0).getProact());
+            ((Item3ViewHolder) holder).mesCount.setText(list.get(0).getCommentcount().substring(1,list.get(0).getCommentcount().length()));
+            if(!TextUtils.isEmpty(list.get(0).getGoodcomment())){
+                ((Item3ViewHolder) holder).digCount.setText(list.get(0).getGoodcomment().substring(1,list.get(0).getGoodcomment().length()));
+            }else
+                ((Item3ViewHolder) holder).digCount.setText("50%");
             ((Item3ViewHolder) holder).price.setText(list.get(0).getPrice());
             if(list.size()==2){
                 ImageLoader.getInstance().displayImage(list.get(1).getImgurl(), ((Item3ViewHolder) holder).imgRight); // imageUrl代表图片的URL地址，imageView代表承载图片的IMAGEVIEW控件
                 ((Item3ViewHolder) holder).businessOther.setText(list.get(1).getStorename());
                 ((Item3ViewHolder) holder).introduceOther.setText(list.get(1).getProinfo());
-                ((Item3ViewHolder) holder).saleOther.setText(list.get(1).getProact());
-                ((Item3ViewHolder) holder).mesCountOther.setText(list.get(1).getCommentcount());
-                ((Item3ViewHolder) holder).digCountOther.setText(list.get(1).getGoodcomment());
+                ((Item3ViewHolder) holder).saleOther.setText(list.get(1).getProact()==""?"暂无促销信息":list.get(1).getProact());
+                ((Item3ViewHolder) holder).mesCountOther.setText(list.get(1).getCommentcount().substring(1,list.get(1).getCommentcount().length()));
+                if(!TextUtils.isEmpty(list.get(1).getGoodcomment()))
+                    ((Item3ViewHolder) holder).digCountOther.setText(list.get(1).getGoodcomment().substring(1,list.get(1).getGoodcomment().length()));
+                else
+                    ((Item3ViewHolder) holder).digCountOther.setText("50%");
                 ((Item3ViewHolder) holder).priceOther.setText(list.get(1).getPrice());
             }
         }
     }
 
-    //设置ITEM类型，可以自由发挥，这里设置item position单数显示item1 偶数显示item2
+    //设置ITEM类型，可以自由发挥，这里设置item 第一个position显示banner 第二个显示圆形点击图像按钮，第三个就是一个列表
     @Override
     public int getItemViewType(int position) {
 //Enum类提供了一个ordinal()方法，返回枚举类型的序数，这里ITEM_TYPE.ITEM1.ordinal()代表0， ITEM_TYPE.ITEM2.ordinal()代表1

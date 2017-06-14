@@ -10,51 +10,86 @@
     android:id="@+id/disc_item"
     android:foreground="?android:attr/selectableItemBackground"
     card_view:cardElevation="2dp">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            >
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                style="@style/roundedImage"
-                android:src="@mipmap/notify_small_icon"
-                />
-            <TextView
-                android:id="@+id/user_name"
-                android:clickable="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:textStyle="italic"
-                android:textSize="24sp"
-                android:text="username"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="5dp"
-            android:layout_marginLeft="60dp">
-            <TextView
+            android:orientation="vertical">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="新买的内裤，撒；阿里速度快解放老师打客服gfhyf
+                android:orientation="horizontal"
+                android:padding="10dp"
+                >
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    style="@style/roundedImage"
+                    android:src="@mipmap/notify_small_icon"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/user_name"
+                        android:clickable="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:textStyle="italic"
+                        android:textSize="24sp"
+                        android:text="username"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="5dp"
+                        android:textSize="10dp"
+                        android:text="2017-06-14"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp"
+                android:layout_marginLeft="60dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="新买的内裤，撒；阿里速度快解放老师打客服gfhyf
                 经理阿里山的开发就收到了快捷方式离开家机房离开对方立刻感觉
                 dsfklsadkjf"/>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:src="@mipmap/ic_launcher"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:src="@mipmap/ic_launcher"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:id="@+id/favor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@mipmap/pro_dig"
+                        android:text="0"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@mipmap/pro_dig"
+                        android:layout_toRightOf="@id/favor"
+                        android:layout_marginLeft="20dp"
+                        android:text="0"/>
+                </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
 
-    </LinearLayout>
+
+
 
 </android.support.v7.widget.CardView>
