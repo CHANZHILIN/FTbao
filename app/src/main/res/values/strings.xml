@@ -8,6 +8,18 @@
 
     <!--Home-->
     <string name="rg_cat">天猫</string>
+    <string name="rb_jhs">聚划算</string>
+    <string name="rb_catInternational">天猫国际</string>
+    <string name="rb_fastFood">外卖</string>
+    <string name="rb_catMarket">天猫超市</string>
+    <string name="rb_czzx">充值中心</string>
+    <string name="rb_fzlx">飞猪旅行</string>
+    <string name="rb_ljb">领金币</string>
+    <string name="rb_pm">拍卖</string>
+    <string name="rb_fl">分类</string>
+
+
+
 
 
     <!--Account-->
