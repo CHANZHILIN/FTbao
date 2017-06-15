@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -17,9 +18,9 @@ import com.example.jinbiao.ftbao.MainActivity;
 import com.example.jinbiao.ftbao.R;
 import com.example.jinbiao.ftbao.utils.SharedHelper;
 import com.example.jinbiao.ftbao.utils.ToastUtils;
+import com.example.jinbiao.ftbao.view.Details_PopupWindow;
 
 import java.io.IOException;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,7 +53,10 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.cb_autologin)
     CheckBox cbAutologin;
 
+
+
     private OkHttpClient client;
+    private Details_PopupWindow details_popupWindow;
 
 
     SharedPreferences sp;
@@ -85,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
         setSupportActionBar(toolbarLogin);
     }
 
+
     @OnClick({R.id.btn_login, R.id.tv_resister, R.id.tv_findpassword})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -102,6 +107,10 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.tv_findpassword:
+
+//                details_popupWindow =  new Details_PopupWindow(this);
+//                details_popupWindow.showAtLocation(this.findViewById(R.id.testPopuwindow),
+//                    Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                 break;
         }
     }
@@ -140,4 +149,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    @OnClick(R.id.tv_findpassword)
+    public void onViewClicked() {
+    }
 }

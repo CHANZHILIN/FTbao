@@ -198,6 +198,7 @@
             android:layout_height="28dp"
             android:gravity="left">
         <TextView
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="22px"
@@ -222,11 +223,13 @@
             android:layout_height="28dp"
             android:layout_gravity="left">
             <TextView
+                android:clickable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="22px"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="3dp"
+                android:id="@+id/testPopuwindow"
                 android:text="选择尺码"/>
         </LinearLayout>
 
