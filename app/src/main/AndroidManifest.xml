@@ -19,22 +19,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <!--默认情况下改变方向app将会循环一次生命周期，在测试中这样会比较容易导致app崩溃,android:configChanges="orientation|screenSize|keyboardHidden"能解决这个Bug-->
-        <activity android:name=".MainActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden">
 
-        </activity>
-        <activity android:name=".activity.LoginActivity" >
+        <!-- 默认情况下改变方向app将会循环一次生命周期，在测试中这样会比较容易导致app崩溃,android:configChanges="orientation|screenSize|keyboardHidden"能解决这个Bug -->
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RegisterActivity"></activity>
-
-
-
+        <activity android:name=".activity.RegisterActivity" />
+        <activity
+            android:name=".activity.TshirtDetailsActivity"
+            android:label="@string/title_activity_tshirt_details"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity android:name=".activity.Main2Activity"></activity>
     </application>
 
 </manifest>

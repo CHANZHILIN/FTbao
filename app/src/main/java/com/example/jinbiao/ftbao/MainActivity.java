@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
     HomeFragment homeFragment;
     DiscoveryFragment discoveryFragment;
     CartFragment cartFragment;
-//    AccountFragment accountFragment;
-    DetailsPageFragment detailsPageFragment;
+    AccountFragment accountFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +57,10 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.rb_cart:
                     cartFragment = (CartFragment) FragmentUtils.loadFragment(cartFragment, CartFragment.class, fragmentManager, R.id.content_main);
                     break;
-            /*    case R.id.rb_account:
-                    accountFragment = (AccountFragment) FragmentUtils.loadFragment(accountFragment, AccountFragment.class, fragmentManager, R.id.content_main);
-                    break;*/
                 case R.id.rb_account:
-                    detailsPageFragment = (DetailsPageFragment) FragmentUtils.loadFragment(detailsPageFragment, DetailsPageFragment.class, fragmentManager, R.id.content_main);
+                    accountFragment = (AccountFragment) FragmentUtils.loadFragment(accountFragment, AccountFragment.class, fragmentManager, R.id.content_main);
                     break;
+
             }
         }
     }

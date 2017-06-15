@@ -2,12 +2,10 @@ package com.example.jinbiao.ftbao.fragment;
 
 import android.app.FragmentManager;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.PointF;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,6 +28,7 @@ import org.litepal.tablemanager.Connector;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -43,7 +42,8 @@ public class HomeFragment extends BaseFragment {
 
 
 private static final String TAG = "HomeFragment";
-    private FragmentManager fragmentManager;
+    private FragmentManager fragmentManager_banner;
+    private android.support.v4.app.FragmentManager fragmentManager;
 //    private RecyclerView.LayoutManager mLayoutManager;
     private LinearLayoutManager linearLayoutManager;
     private ReCycleViewAdpater mAdapter;
@@ -169,9 +169,10 @@ private static final String TAG = "HomeFragment";
         recyclerView.setLayoutManager(linearLayoutManager);
         //如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
         recyclerView.setHasFixedSize(true);
-        fragmentManager=getActivity().getFragmentManager();
+        fragmentManager_banner=getActivity().getFragmentManager();
+        fragmentManager=getActivity().getSupportFragmentManager();
         //创建并设置Adapter
-        mAdapter = new ReCycleViewAdpater(getActivity(),fragmentManager,lists,bannerlist);
+        mAdapter = new ReCycleViewAdpater(getActivity(),fragmentManager_banner,fragmentManager,lists,bannerlist);
         recyclerView.setAdapter(mAdapter);
     }
 

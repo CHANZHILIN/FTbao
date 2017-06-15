@@ -14,7 +14,7 @@ import java.util.List;
 public class FragmentUtils {
 
     static List<Fragment> fragmentList=new ArrayList<>();
-
+    private static final String TAG = "FragmentUtils";
     /**
      * 实现 当Fragment 不存在就new一个 Fragment 存在就show
      * @param fragment
@@ -37,9 +37,9 @@ public class FragmentUtils {
                 e.printStackTrace();
             }
             fragmentTransaction.add(layoutid,fragment);
+
         }else
             fragmentTransaction.show(fragment);
-
         fragmentTransaction.commit();
         return fragment;
     }

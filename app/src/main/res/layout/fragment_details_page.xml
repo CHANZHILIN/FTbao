@@ -4,137 +4,154 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.jinbiao.ftbao.fragment.DetailsPageFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:orientation="horizontal"
-       >
+        android:orientation="horizontal">
+
         <TextView
 
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:gravity="center"
             android:layout_marginLeft="15dp"
+            android:background="@drawable/left_arrow"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="商品"
+            android:textSize="32px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="详情"
+            android:textSize="32px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="评价"
+            android:textSize="32px" />
+
+        <TextView
+
             android:layout_width="24dp"
             android:layout_height="wrap_content"
-          android:background="@drawable/left_arrow"/>
-        <TextView
-            android:layout_weight="1"
             android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="32px"
-            android:text="商品"/>
-        <TextView
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="32px"
-            android:text="详情"/>
-        <TextView
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="32px"
-            android:text="评价"/> <TextView
-
-        android:layout_gravity="center_vertical"
-        android:gravity="center"
-        android:layout_marginRight="15dp"
-        android:layout_width="24dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shopping_cart"/>
-        <TextView
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
             android:layout_marginRight="15dp"
+            android:background="@drawable/shopping_cart"
+            android:gravity="center" />
+
+        <TextView
             android:layout_width="24dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/view_list_details"/>
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/view_list_details"
+            android:gravity="center" />
     </LinearLayout>
-   <FrameLayout
-       android:id="@+id/details_content"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:layout_weight="1">
 
-   </FrameLayout>
+    <FrameLayout
+        android:id="@+id/details_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+    </FrameLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-      >
+        android:orientation="horizontal">
+
         <LinearLayout
-            android:layout_weight="1"
-            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical">
-            <com.makeramen.roundedimageview.RoundedImageView
+
+            <ImageView
                 android:id="@+id/details_content_Customerservice"
-                style="@style/roundedImage"
-                android:src="@drawable/man"
-                />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/man" />
+
             <TextView
-                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Customerservice"/>
+                android:layout_gravity="center_horizontal"
+                android:text="@string/Customerservice" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:orientation="vertical">
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/details_content_shop"
-            style="@style/roundedImage"
-            android:src="@drawable/shop"
-            />
-        <TextView
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/shop"/>
+
+            <ImageView
+                android:id="@+id/details_content_shop"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/shop" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/shop" />
         </LinearLayout>
+
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:orientation="vertical">
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/details_content_Collection"
-            style="@style/roundedImage"
-            android:src="@drawable/start"
-            />
-        <TextView
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Collection"/>
+
+            <ImageView
+                android:id="@+id/details_content_Collection"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/start" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/Collection" />
         </LinearLayout>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#FF8C1C"
-            android:textColor="#FAFAFA"
-            android:text="加入购物车"/>
+            android:text="加入购物车"
+            android:textColor="#FAFAFA" />
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#EA2000"
-            android:textColor="#FFFFFF"
-            android:text="立即购买"/>
+            android:text="立即购买"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
-
 
 
 </LinearLayout>

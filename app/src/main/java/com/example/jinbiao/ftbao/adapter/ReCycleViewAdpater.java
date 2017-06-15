@@ -2,10 +2,10 @@ package com.example.jinbiao.ftbao.adapter;
 
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jinbiao.ftbao.R;
+import com.example.jinbiao.ftbao.activity.TshirtDetailsActivity;
 import com.example.jinbiao.ftbao.bean.ADInfo;
 import com.example.jinbiao.ftbao.bean.Tshirt;
-import com.example.jinbiao.ftbao.bean.TshirtData;
 import com.example.jinbiao.ftbao.pager.cycleviewpager.CycleViewPager;
 import com.example.jinbiao.ftbao.utils.ViewFactory;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -32,10 +32,10 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
     private List<ADInfo> infos = new ArrayList<ADInfo>();
     private LayoutInflater mLayoutInflater;
     private Context context;
-    private FragmentManager fragmentManager;
+    private android.support.v4.app.FragmentManager fragmentManager;
+    private FragmentManager fragmentManager_banner;
     private List<List<Tshirt>> tshirts;
     private String[] bannerlist;
-
     public void setTshirts(List<List<Tshirt>> tshirts){
         this.tshirts.addAll(tshirts);
     }
@@ -46,10 +46,11 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
         ITEM3
     }
 
-    public ReCycleViewAdpater(Context context, FragmentManager fragmentManager, List<List<Tshirt>> tshirts, String[] bannerlist) {
+    public ReCycleViewAdpater(Context context, FragmentManager fragmentManager_banner,android.support.v4.app.FragmentManager fragmentManager, List<List<Tshirt>> tshirts, String[] bannerlist) {
         this.tshirts = tshirts;
         this.bannerlist = bannerlist;
         this.context = context;
+        this.fragmentManager_banner=fragmentManager_banner;
         this.fragmentManager = fragmentManager;
         mLayoutInflater = LayoutInflater.from(context);
     }
@@ -62,9 +63,7 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
         } else if (viewType == ITEM_TYPE.ITEM2.ordinal()) {
             return new Item2ViewHolder(mLayoutInflater.inflate(R.layout.cycle_item_image, parent, false));
         } else {
-
             return new Item3ViewHolder(mLayoutInflater.inflate(R.layout.cycleview_items, parent, false));
-
         }
     }
 
@@ -78,6 +77,13 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
         } else if (holder instanceof Item3ViewHolder) {
             List<Tshirt>list=tshirts.get(position - 2);
             ImageLoader.getInstance().displayImage(list.get(0).getImgurl(), ((Item3ViewHolder) holder).imgLeft); // imageUrl代表图片的URL地址，imageView代表承载图片的IMAGEVIEW控件
+           ((Item3ViewHolder) holder).imgLeft.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+//                   tshirtDetailsFragment = (TshirtDetailsFragment) FragmentUtils.loadFragment(tshirtDetailsFragment, TshirtDetailsFragment.class, fragmentManager, R.id.content_main);
+                    context.startActivity(new Intent(context, TshirtDetailsActivity.class));
+               }
+           });
             ((Item3ViewHolder) holder).business.setText(list.get(0).getStorename());
             ((Item3ViewHolder) holder).introduce.setText(list.get(0).getProinfo());
             ((Item3ViewHolder) holder).sale.setText(list.get(0).getProact()==""?"暂无促销信息":list.get(0).getProact());
@@ -89,6 +95,13 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
             ((Item3ViewHolder) holder).price.setText(list.get(0).getPrice());
             if(list.size()==2){
                 ImageLoader.getInstance().displayImage(list.get(1).getImgurl(), ((Item3ViewHolder) holder).imgRight); // imageUrl代表图片的URL地址，imageView代表承载图片的IMAGEVIEW控件
+                ((Item3ViewHolder) holder).imgRight.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        tshirtDetailsFragment = (TshirtDetailsFragment) FragmentUtils.loadFragment(tshirtDetailsFragment, TshirtDetailsFragment.class, fragmentManager, R.id.content_main);
+                        context.startActivity(new Intent(context, TshirtDetailsActivity.class));
+                    }
+                });
                 ((Item3ViewHolder) holder).businessOther.setText(list.get(1).getStorename());
                 ((Item3ViewHolder) holder).introduceOther.setText(list.get(1).getProinfo());
                 ((Item3ViewHolder) holder).saleOther.setText(list.get(1).getProact()==""?"暂无促销信息":list.get(1).getProact());
@@ -105,7 +118,7 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
     //设置ITEM类型，可以自由发挥，这里设置item 第一个position显示banner 第二个显示圆形点击图像按钮，第三个就是一个列表
     @Override
     public int getItemViewType(int position) {
-//Enum类提供了一个ordinal()方法，返回枚举类型的序数，这里ITEM_TYPE.ITEM1.ordinal()代表0， ITEM_TYPE.ITEM2.ordinal()代表1
+    //Enum类提供了一个ordinal()方法，返回枚举类型的序数，这里ITEM_TYPE.ITEM1.ordinal()代表0， ITEM_TYPE.ITEM2.ordinal()代表1
         if (position == 0) return ITEM_TYPE.ITEM1.ordinal();
         if (position == 1) return ITEM_TYPE.ITEM2.ordinal();
         return ITEM_TYPE.ITEM3.ordinal();
@@ -122,7 +135,7 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         public Item1ViewHolder(View itemView) {
             super(itemView);
-            cycleViewPager = (CycleViewPager) fragmentManager.findFragmentById(R.id.fragment_cycle_viewpager_content);
+            cycleViewPager = (CycleViewPager) fragmentManager_banner.findFragmentById(R.id.fragment_cycle_viewpager_content);
             cycleViewPagerOn(cycleViewPager);
         }
     }
