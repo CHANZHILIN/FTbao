@@ -8,6 +8,7 @@ import android.widget.RadioGroup;
 
 import com.example.jinbiao.ftbao.fragment.AccountFragment;
 import com.example.jinbiao.ftbao.fragment.CartFragment;
+import com.example.jinbiao.ftbao.fragment.DetailsPageFragment;
 import com.example.jinbiao.ftbao.fragment.DiscoveryFragment;
 import com.example.jinbiao.ftbao.fragment.HomeFragment;
 import com.example.jinbiao.ftbao.utils.FragmentUtils;
@@ -23,7 +24,8 @@ public class MainActivity extends AppCompatActivity {
     HomeFragment homeFragment;
     DiscoveryFragment discoveryFragment;
     CartFragment cartFragment;
-    AccountFragment accountFragment;
+//    AccountFragment accountFragment;
+    DetailsPageFragment detailsPageFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +57,11 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.rb_cart:
                     cartFragment = (CartFragment) FragmentUtils.loadFragment(cartFragment, CartFragment.class, fragmentManager, R.id.content_main);
                     break;
-                case R.id.rb_account:
+            /*    case R.id.rb_account:
                     accountFragment = (AccountFragment) FragmentUtils.loadFragment(accountFragment, AccountFragment.class, fragmentManager, R.id.content_main);
+                    break;*/
+                case R.id.rb_account:
+                    detailsPageFragment = (DetailsPageFragment) FragmentUtils.loadFragment(detailsPageFragment, DetailsPageFragment.class, fragmentManager, R.id.content_main);
                     break;
             }
         }

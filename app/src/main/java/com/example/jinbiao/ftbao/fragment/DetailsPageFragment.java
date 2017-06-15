@@ -1,13 +1,10 @@
 package com.example.jinbiao.ftbao.fragment;
 
 import android.app.FragmentManager;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.PointF;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.jinbiao.ftbao.R;
+import com.example.jinbiao.ftbao.adapter.DetailsAdpater;
 import com.example.jinbiao.ftbao.adapter.ReCycleViewAdpater;
 import com.example.jinbiao.ftbao.base.BaseFragment;
 import com.example.jinbiao.ftbao.bean.Tshirt;
@@ -25,11 +23,9 @@ import com.example.jinbiao.ftbao.bean.TshirtData;
 import com.example.jinbiao.ftbao.interFace.ITshirt;
 import com.example.jinbiao.ftbao.utils.Constant;
 
-import org.litepal.crud.DataSupport;
-import org.litepal.tablemanager.Connector;
-
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -39,22 +35,21 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class HomeFragment extends BaseFragment {
+public class DetailsPageFragment extends BaseFragment {
 
 
-private static final String TAG = "HomeFragment";
+private static final String TAG = "DetailPageFragment";
     private FragmentManager fragmentManager;
 //    private RecyclerView.LayoutManager mLayoutManager;
     private LinearLayoutManager linearLayoutManager;
-    private ReCycleViewAdpater mAdapter;
-    @BindView(R.id.demo_swiperefreshlayout)
+    private DetailsAdpater mAdapter;
+    @BindView(R.id.details_swiperefreshlayout)
     SwipeRefreshLayout swiperefreshlayout;
-    @BindView(R.id.my_recycler_view)
+    @BindView(R.id.mydetails_recycler_view)
     RecyclerView recyclerView;
     List<List<Tshirt>> lists=new ArrayList<>();
     private Handler handler =new Handler(Looper.getMainLooper());
     private static int currentpage=1;
-    private static int currentpageNDB=1;
     private int lastVisibleItem;
     //如果当前是刷新状态就设置为false
     private static boolean refreshing=true;
@@ -66,26 +61,19 @@ private static final String TAG = "HomeFragment";
             "http://pic.58pic.com/58pic/12/64/27/55U58PICrdX.jpg"};
 
     @Override
-    public HomeFragment newInstance(){
-        return new HomeFragment();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        currentpageNDB=1;
+    public DetailsPageFragment newInstance(){
+        return new DetailsPageFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_home,null);
+        View view= inflater.inflate(R.layout.fragment_detail,null);
         //先绑定ButterKnife 要不然不能用
         ButterKnife.bind(this,view);
         initView(view);
         getData();
         initAdapter();
-        SQLiteDatabase db = Connector.getDatabase();
         return view;
     }
 
@@ -94,15 +82,15 @@ private static final String TAG = "HomeFragment";
                 .baseUrl(Constant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        final ITshirt tshirts = retrofit.create(ITshirt.class);
+        ITshirt tshirts = retrofit.create(ITshirt.class);
         Call<TshirtData> call = tshirts.getTshirts(Constant.PAGE_SIZE,currentpage);
         call.enqueue(new Callback<TshirtData>(){
             @Override
             public void onResponse(Call<TshirtData> call, Response<TshirtData> response)
             {
-                if(response.body().getData().size()>0){
-                    //将数据保存到sqlite,并且从网络上拿数据
-                    mAdapter.setTshirts(getTshirtList(saveData(response.body().getData())));
+                if(getTshirtList(response.body().getData()).size()>0){
+                    mAdapter.setTshirts(getTshirtList(response.body().getData()));
+                    mAdapter.notifyDataSetChanged();
                     currentpage++;
                     refreshing=true;
                 }else
@@ -113,34 +101,10 @@ private static final String TAG = "HomeFragment";
             public void onFailure(Call<TshirtData> call, Throwable t)
             {
                 Log.e(TAG, "normalGet:" + t.getMessage()+ "");
-                getDataFormDB();
-                refreshing=true;
             }
         });
     }
 
-    /**
-     * 判断如果本地数据看已经存在该数据，就不会保存到本地
-     * @param tshirtlist
-     */
-    private List<Tshirt> saveData(List<Tshirt> tshirtlist){
-        for (int i = 0; i <tshirtlist.size() ; i++) {
-            Tshirt tshirt =tshirtlist.get(i);
-            if((DataSupport.where("details = ?", tshirt.getDetails()).find(Tshirt.class)).size()==0){
-                tshirt.save();
-            }
-        }
-        return tshirtlist;
-    }
-
-    /**
-     * 从本地数据库拿数据
-     */
-    private void getDataFormDB(){
-        mAdapter.setTshirts(getTshirtList(DataSupport.limit(Constant.PAGE_SIZE).offset(Constant.PAGE_SIZE * currentpageNDB - 1).find(Tshirt.class)));
-        currentpageNDB++;
-        mAdapter.notifyDataSetChanged();
-    }
     private List<List<Tshirt>> getTshirtList(List<Tshirt> tshirtlist){
         List<List<Tshirt>> lists=new ArrayList<List<Tshirt>>();
         List<Tshirt> list =new ArrayList<Tshirt>();
@@ -171,7 +135,7 @@ private static final String TAG = "HomeFragment";
         recyclerView.setHasFixedSize(true);
         fragmentManager=getActivity().getFragmentManager();
         //创建并设置Adapter
-        mAdapter = new ReCycleViewAdpater(getActivity(),fragmentManager,lists,bannerlist);
+        mAdapter = new DetailsAdpater(getActivity(),fragmentManager,lists,bannerlist);
         recyclerView.setAdapter(mAdapter);
     }
 
