@@ -1,7 +1,5 @@
 package com.example.jinbiao.ftbao.base;
 
-import android.app.Application;
-
 import com.example.jinbiao.ftbao.R;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -11,11 +9,13 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 
+import org.litepal.LitePalApplication;
+
 /**
  * Created by Administrator on 2017-6-7.
  */
 
-public class App extends Application {
+public class App extends LitePalApplication {
     @Override
     public void onCreate() {
         super.onCreate();

@@ -8,6 +8,15 @@
 
     <!--Home-->
     <string name="rg_cat">天猫</string>
+    <string name="rb_jhs">聚划算</string>
+    <string name="rb_catInternational">天猫国际</string>
+    <string name="rb_fastFood">外卖</string>
+    <string name="rb_catMarket">天猫超市</string>
+    <string name="rb_czzx">充值中心</string>
+    <string name="rb_fzlx">飞猪旅行</string>
+    <string name="rb_ljb">领金币</string>
+    <string name="rb_pm">拍卖</string>
+    <string name="rb_fl">分类</string>
 
 
     <!--Account-->
@@ -28,21 +37,27 @@
     <string name="vip_mark">会员积分</string>
 
 
-
     <string name="help">帮助</string>
     <string name="accountname">账户</string>
-    <string name="password">登录密码</string>
-    <string name="hint_account">淘宝会员账号</string>
-    <string name="hint_password">请输入密码</string>
+    <string name="password">密码</string>
     <string name="login">登录</string>
-    <string name="registeruser">新用户注册</string>
+    <string name="registeruser">用户注册</string>
     <string name="findpassword">找回密码</string>
 
 
-   <!-- 购物车-->
+    <!-- 购物车-->
     <string name="my_cart">购物车</string>
     <string name="cart_edit">编辑全部</string>
     <string name="select_all">全选</string>
     <string name="cal">结算</string>
     <string name="count_all">合计：</string>
+
+    <!--details页面-->
+    <string name="Customerservice">客服</string>
+    <string name="Collection">收藏</string>
+    <string name="shop">店铺</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_tshirt_details">TshirtDetailsActivity</string>
 </resources>
