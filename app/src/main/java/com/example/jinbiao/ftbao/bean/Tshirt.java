@@ -1,10 +1,12 @@
 package com.example.jinbiao.ftbao.bean;
 
+import org.litepal.crud.DataSupport;
+
 /**
  * Created by Administrator on 2017/6/14.
  */
 
-public class Tshirt {
+public class Tshirt  extends DataSupport{
     /**
      * imgurl : http://d9.yihaodianimg.com/N03/M02/6A/32/CgQCtFOif0SALflfAAL-UJ0kcBE84800_230*322.jpg
      * goodcomment : 95%
