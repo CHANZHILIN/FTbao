@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
           <CheckBox
+              android:id="@+id/cb_storename"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:text="@string/accountname"
@@ -25,7 +26,6 @@
               android:background="#eee"
               android:checked="false"
               />
-            <include layout="@layout/cycleview_cart_item"/>
             <include layout="@layout/cycleview_cart_item"/>
     </LinearLayout>
 </android.support.v7.widget.CardView>

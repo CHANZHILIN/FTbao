@@ -16,12 +16,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <CheckBox
+            android:id="@+id/cb_goods"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:checked="false"
             />
         <ImageView
+            android:id="@+id/iv_goodsimg"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@mipmap/notify_small_icon"
@@ -31,12 +33,14 @@
             android:layout_height="80dp"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/tv_storename"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:text="一二三四五六七八 二二三四五六七八 三二三四五六七八"
                 />
             <TextView
+                android:id="@+id/tv_goodskind"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
@@ -48,6 +52,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/tv_goodsprice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
@@ -56,6 +61,7 @@
                     android:text="￥：30"
                     />
                 <TextView
+                    android:id="@+id/tv_goodscount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
