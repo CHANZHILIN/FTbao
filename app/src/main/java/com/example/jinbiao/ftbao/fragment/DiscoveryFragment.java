@@ -1,5 +1,6 @@
 package com.example.jinbiao.ftbao.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.jinbiao.ftbao.R;
+import com.example.jinbiao.ftbao.activity.PublishActivity;
 import com.example.jinbiao.ftbao.adapter.DiscoveryAdapter;
 import com.example.jinbiao.ftbao.base.BaseFragment;
 
@@ -54,6 +56,13 @@ public class DiscoveryFragment extends BaseFragment {
     @Override
     protected void initView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.disco_recycler_view);
+        view.findViewById(R.id.publish).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), PublishActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

@@ -37,6 +37,7 @@
             android:label="@string/title_activity_tshirt_details"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity android:name=".activity.Main2Activity"></activity>
+        <activity android:name=".activity.PublishActivity"></activity>
     </application>
 
 </manifest>

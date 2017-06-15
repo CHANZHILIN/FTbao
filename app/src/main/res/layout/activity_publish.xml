@@ -1,0 +1,84 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#eee"
+            android:padding="5dp"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:text="@string/titile"/>
+            <Button
+                android:id="@+id/publish"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="15sp"
+                android:layout_marginTop="5dp"
+                android:text="@string/publish"/>
+
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/sharetext"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:gravity="top"
+            android:hint="..."
+            android:inputType="textMultiLine"
+            android:maxLength="400" />
+
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:visibility="gone">
+            <ImageView
+                android:id="@+id/imageview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"/>
+            <ImageView
+                android:id="@+id/delete"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/delete_white"
+                android:layout_gravity="top|right"
+                android:tint="#ff0000"/>
+        </FrameLayout>
+
+
+
+        <ImageView
+            android:id="@+id/addImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/add_picture">
+        </ImageView>
+
+    </LinearLayout>
+</ScrollView>
+
