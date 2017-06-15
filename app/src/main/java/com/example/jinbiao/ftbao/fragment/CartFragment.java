@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,8 @@ public class CartFragment extends BaseFragment {
     public int uid = 2;
 
 
+    private boolean isTouch = false;
+
     private static final String TAG = "CartFragment";
 
     @BindView(R.id.recycler_view_cart)
@@ -50,6 +53,7 @@ public class CartFragment extends BaseFragment {
     CheckBox mCheckBox;
     @BindView(R.id.allnum)
     TextView mAllnum;
+//    private LinearLayout mLinearLayout;
     private LinearLayoutManager mLinearLayoutManager;
     private FragmentManager mFragmentManager;
     private CartReCycleViewAdapter mCartReCycleViewAdapter;
@@ -77,6 +81,7 @@ public class CartFragment extends BaseFragment {
         //获取购物车数据
         getCartData();
         initAdapter();
+//        mLinearLayout = (LinearLayout) this.getActivity().findViewById(R.id.ll_delete);
         return view;
     }
 
@@ -90,6 +95,13 @@ public class CartFragment extends BaseFragment {
         mCartReCycleViewAdapter = new CartReCycleViewAdapter(getActivity(), mFragmentManager, cart);
         //设置适配器
         mRecyclerViewCart.setAdapter(mCartReCycleViewAdapter);
+        //设置recycleView的点击事件
+        mCartReCycleViewAdapter.setOnItemClickListener(new CartReCycleViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getContext(),"点击了第" + (position+1) + "行",Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -137,7 +149,13 @@ public class CartFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.edit_all:
-                Toast.makeText(getContext(),"aa",Toast.LENGTH_SHORT).show();
+              /* if (isTouch){
+                   mLinearLayout.setVisibility(View.GONE);
+                   isTouch = false;
+               }else {
+                   mLinearLayout.setVisibility(View.VISIBLE);
+                   isTouch = true;
+               }*/
                 break;
             case R.id.checkBox:
                 if (mCheckBox.isChecked()){

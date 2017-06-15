@@ -50,6 +50,7 @@
             android:padding="15dp"
             android:textSize="18sp"
             android:layout_weight="1"
+            android:button="@drawable/cart_item_selector"
             android:checked="false"
             android:id="@+id/checkBox"/>
 

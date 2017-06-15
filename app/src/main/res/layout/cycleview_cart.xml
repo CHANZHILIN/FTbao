@@ -19,6 +19,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:text="@string/accountname"
+              android:button="@drawable/cart_item_selector"
               android:padding="5dp"
               android:textSize="18sp"
               android:checked="false"
@@ -31,18 +32,22 @@
                 android:id="@+id/cb_good"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:button="@drawable/cart_item_selector"
                 android:layout_marginTop="25dp"
                 android:checked="false"
                 />
+
             <ImageView
                 android:id="@+id/iv_goodimg"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@mipmap/notify_small_icon"
                 />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical">
                 <TextView
                     android:id="@+id/tv_goodname"
@@ -81,6 +86,22 @@
                         android:layout_weight="3"
                         android:text="数量：x1"/>
                 </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_delete"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:layout_weight="2"
+                >
+                <Button
+                    android:id="@+id/btn_delete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="22dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/accountActionBar"
+                    android:text="删除"/>
             </LinearLayout>
 
         </LinearLayout>
