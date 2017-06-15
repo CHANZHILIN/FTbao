@@ -129,6 +129,7 @@ public class DetailsAdpater extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public static class Item2ViewHolder extends RecyclerView.ViewHolder {
         public Item2ViewHolder(View itemView) {
             super(itemView);
+
             //先与viewholder绑定才能找到view
             ButterKnife.bind(this, itemView);
         }

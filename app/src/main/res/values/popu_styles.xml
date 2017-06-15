@@ -1,0 +1,6 @@
+<resources  xmlns:android="http://schemas.android.com/apk/res/android" >
+<style name="anim_menu_bottombar">
+    <item name="android:windowEnterAnimation">@animator/popuwindow_in</item>
+    <item name="android:windowExitAnimation">@animator/popuwindow_out</item>
+</style>
+</resources>

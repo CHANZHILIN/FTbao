@@ -25,6 +25,7 @@ public class TshirtDetailsActivity extends AppCompatActivity {
     }
 
     private void initView() {
+
     }
 
 }
