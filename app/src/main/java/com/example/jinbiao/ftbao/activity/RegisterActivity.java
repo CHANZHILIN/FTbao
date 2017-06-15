@@ -178,12 +178,11 @@ public class RegisterActivity extends Activity {
         //建立请求表单，添加发送到服务器的数据
         RequestBody formBody = new FormBody.Builder()
                 .add("phone", phone)
-                .add("code", code)
                 .add("password", password)
                 .build();
         //发起请求
         Request request = new Request.Builder()
-                .url("")
+                .url("xxxxxxxxxxx")
                 .post(formBody)
                 .build();
         Call call = client.newCall(request);
@@ -195,7 +194,12 @@ public class RegisterActivity extends Activity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-
+                String isregister = response.body().string();
+                if (isregister.equals("success")){
+                    System.out.println("Register success!");
+                }else{
+                    System.out.println("Failed!");
+                }
             }
         });
     }

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
 
     android:padding="10dp"
-    android:background="@mipmap/login_bg"
+    android:background="@mipmap/bg"
     tools:context="com.example.jinbiao.ftbao.activity.LoginActivity">
 
     <android.support.v7.widget.Toolbar
@@ -65,6 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp">
                     <EditText
+                        android:focusable="true"
                         android:textSize="13sp"
                         android:hint="@string/accountname"
                         android:textColor="#2fa881"
@@ -96,6 +97,30 @@
                     android:paddingBottom="2dp"
                     />
             </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <CheckBox
+                    android:id="@+id/cb_remember"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/gray"
+                    android:text="记住密码"/>
+                <CheckBox
+                    android:id="@+id/cb_autologin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/gray"
+                    android:text="自动登录"/>
+            </LinearLayout>
+
             <Button
                 android:id="@+id/btn_login"
                 android:layout_marginTop="20dp"

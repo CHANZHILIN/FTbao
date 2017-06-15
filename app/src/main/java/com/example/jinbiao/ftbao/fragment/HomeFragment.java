@@ -25,6 +25,7 @@ import com.example.jinbiao.ftbao.bean.TshirtData;
 import com.example.jinbiao.ftbao.interFace.ITshirt;
 import com.example.jinbiao.ftbao.utils.Constant;
 
+import org.litepal.crud.DataSupport;
 import org.litepal.tablemanager.Connector;
 
 import java.util.ArrayList;
@@ -54,6 +55,7 @@ private static final String TAG = "HomeFragment";
     List<List<Tshirt>> lists=new ArrayList<>();
     private Handler handler =new Handler(Looper.getMainLooper());
     private static int currentpage=1;
+    private static int currentpageNDB=1;
     private int lastVisibleItem;
     //如果当前是刷新状态就设置为false
     private static boolean refreshing=true;
@@ -67,6 +69,12 @@ private static final String TAG = "HomeFragment";
     @Override
     public HomeFragment newInstance(){
         return new HomeFragment();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        currentpageNDB=1;
     }
 
     @Nullable
@@ -87,15 +95,15 @@ private static final String TAG = "HomeFragment";
                 .baseUrl(Constant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        ITshirt tshirts = retrofit.create(ITshirt.class);
+        final ITshirt tshirts = retrofit.create(ITshirt.class);
         Call<TshirtData> call = tshirts.getTshirts(Constant.PAGE_SIZE,currentpage);
         call.enqueue(new Callback<TshirtData>(){
             @Override
             public void onResponse(Call<TshirtData> call, Response<TshirtData> response)
             {
-                if(getTshirtList(response.body().getData()).size()>0){
-                    mAdapter.setTshirts(getTshirtList(response.body().getData()));
-                    mAdapter.notifyDataSetChanged();
+                if(response.body().getData().size()>0){
+                    //将数据保存到sqlite,并且从网络上拿数据
+                    mAdapter.setTshirts(getTshirtList(saveData(response.body().getData())));
                     currentpage++;
                     refreshing=true;
                 }else
@@ -106,10 +114,34 @@ private static final String TAG = "HomeFragment";
             public void onFailure(Call<TshirtData> call, Throwable t)
             {
                 Log.e(TAG, "normalGet:" + t.getMessage()+ "");
+                getDataFormDB();
+                refreshing=true;
             }
         });
     }
 
+    /**
+     * 判断如果本地数据看已经存在该数据，就不会保存到本地
+     * @param tshirtlist
+     */
+    private List<Tshirt> saveData(List<Tshirt> tshirtlist){
+        for (int i = 0; i <tshirtlist.size() ; i++) {
+            Tshirt tshirt =tshirtlist.get(i);
+            if((DataSupport.where("details = ?", tshirt.getDetails()).find(Tshirt.class)).size()==0){
+                tshirt.save();
+            }
+        }
+        return tshirtlist;
+    }
+
+    /**
+     * 从本地数据库拿数据
+     */
+    private void getDataFormDB(){
+        mAdapter.setTshirts(getTshirtList(DataSupport.limit(Constant.PAGE_SIZE).offset(Constant.PAGE_SIZE * currentpageNDB - 1).find(Tshirt.class)));
+        currentpageNDB++;
+        mAdapter.notifyDataSetChanged();
+    }
     private List<List<Tshirt>> getTshirtList(List<Tshirt> tshirtlist){
         List<List<Tshirt>> lists=new ArrayList<List<Tshirt>>();
         List<Tshirt> list =new ArrayList<Tshirt>();
