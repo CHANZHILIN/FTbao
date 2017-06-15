@@ -2,14 +2,15 @@ package com.example.jinbiao.ftbao.fragment;
 
 import android.app.FragmentManager;
 import android.os.Bundle;
-
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jinbiao.ftbao.R;
@@ -18,13 +19,13 @@ import com.example.jinbiao.ftbao.base.BaseFragment;
 import com.example.jinbiao.ftbao.bean.CartData;
 import com.example.jinbiao.ftbao.interFace.ICart;
 import com.example.jinbiao.ftbao.utils.Constant;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,17 +34,28 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class CartFragment extends BaseFragment {
+    /**
+     * 需要一个uid(用户id)
+     */
+    public int uid = 2;
+
 
     private static final String TAG = "CartFragment";
 
     @BindView(R.id.recycler_view_cart)
     RecyclerView mRecyclerViewCart;
+    @BindView(R.id.edit_all)
+    Button mEditAll;
+    @BindView(R.id.checkBox)
+    CheckBox mCheckBox;
+    @BindView(R.id.allnum)
+    TextView mAllnum;
     private LinearLayoutManager mLinearLayoutManager;
     private FragmentManager mFragmentManager;
     private CartReCycleViewAdapter mCartReCycleViewAdapter;
 
     private List<CartData.DataBean> cartDatas;
-    public List<CartData.DataBean> cart;
+    public List<CartData.DataBean> cart = new ArrayList<>();
 
     @Override
     public CartFragment newInstance() {
@@ -67,60 +79,85 @@ public class CartFragment extends BaseFragment {
         initAdapter();
         return view;
     }
-    public void initAdapter(){
+
+    public void initAdapter() {
         mLinearLayoutManager = new LinearLayoutManager(this.getActivity());
         mRecyclerViewCart.setLayoutManager(mLinearLayoutManager);
         //设置高度固定，提高性能
         mRecyclerViewCart.setHasFixedSize(true);
         mFragmentManager = this.getActivity().getFragmentManager();
-        mCartReCycleViewAdapter = new CartReCycleViewAdapter(getActivity(),mFragmentManager,cart);
+
+        mCartReCycleViewAdapter = new CartReCycleViewAdapter(getActivity(), mFragmentManager, cart);
         //设置适配器
         mRecyclerViewCart.setAdapter(mCartReCycleViewAdapter);
 
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
     }
 
-    public void getCartData(){
+    public void getCartData() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ICart carts = retrofit.create(ICart.class);
-        Call<CartData> call = carts.getCartData(2);
+        Call<CartData> call = carts.getCartData(uid);   //根据uid（用户id）去查询购物车
         call.enqueue(new Callback<CartData>() {
             @Override
             public void onResponse(Call<CartData> call, Response<CartData> response) {
 
-                  //cartDatas.addAll(response.body().getData());
+                //cartDatas.addAll(response.body().getData());
                 cart = response.body().getData();
                    /*for (int i = 0; i < carts.size();i++){
                      //  cartDatas.add(carts.get(i));
                        Toast.makeText(getContext(),carts.get(i)+"dddf",Toast.LENGTH_SHORT).show();
                    }*/
-                 //  Toast.makeText(getContext(),"获取数据成功",Toast.LENGTH_SHORT).show();
-              // Toast.makeText(getContext(),""+cart.get(0).getStorename(),Toast.LENGTH_LONG).show();
-                   mCartReCycleViewAdapter.setCartDatas(cart);
-
+                //  Toast.makeText(getContext(),"获取数据成功",Toast.LENGTH_SHORT).show();
+//              Toast.makeText(getContext(),""+cart.get(0).getStorename(),Toast.LENGTH_LONG).show();
+                 /*  mCartReCycleViewAdapter.setCartDatas(cart);*/
+                mCartReCycleViewAdapter.setCartDatas(cart);
+                mCartReCycleViewAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<CartData> call, Throwable t) {
-                Toast.makeText(getContext(),"获取数据失败",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "获取数据失败", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    /*private List<List<CartData.DataBean>> getCartList(List<CartData.DataBean> cartlist){
-        lists = new ArrayList<List<CartData.DataBean>>();
-        List<CartData.DataBean> list = new ArrayList<CartData.DataBean>();
-        for (int i = 0; i < cartlist.size() ; i++) {
-            CartData.DataBean cart = cartlist.get(i);
-            list.add(cart);
-            lists.add(list);
+    /**
+     * 点击事件
+     * @param view
+     */
+    @OnClick({R.id.edit_all, R.id.checkBox})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.edit_all:
+                Toast.makeText(getContext(),"aa",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.checkBox:
+                if (mCheckBox.isChecked()){
+                    calculator();
+                }else {
+                    mAllnum.setText("￥:0.0");
+
+                }
+                break;
         }
-        return lists;
-    }*/
+    }
+
+    public void calculator(){
+        double num = 0.0;
+        for (int i = 0; i < cart.size(); i++){
+            String data = cart.get(i).getPrice();
+            double price = Double.parseDouble(data.substring(1));
+            int count = cart.get(i).getCount();
+            num += price*count;
+        }
+        mAllnum.setText("￥:"+ num);
+    }
 }

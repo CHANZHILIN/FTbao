@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="5dp"
     android:id="@+id/cart_item_list"
-    android:foreground="?android:attr/selectableItemBackground"
     card_view:cardCornerRadius="4dp"
     card_view:cardElevation="4dp"
     >
@@ -18,14 +17,72 @@
           <CheckBox
               android:id="@+id/cb_storename"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:layout_height="wrap_content"
               android:text="@string/accountname"
               android:padding="5dp"
               android:textSize="18sp"
-              android:button="@drawable/cart_item_selector"
-              android:background="#eee"
               android:checked="false"
               />
-            <include layout="@layout/cycleview_cart_item"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <CheckBox
+                android:id="@+id/cb_good"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:checked="false"
+                />
+            <ImageView
+                android:id="@+id/iv_goodimg"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@mipmap/notify_small_icon"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_goodname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="一二三四五六七八 二二三四五六七八 三二三四五六七八"
+                    />
+                <TextView
+                    android:id="@+id/tv_goodkind"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorgray"
+                    android:text="status:灰色：41"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_goodprice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textColor="@color/colorgray"
+                        android:layout_weight="1"
+                        android:text="￥：30"
+                        />
+                    <TextView
+                        android:id="@+id/tv_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textColor="@color/colorgray"
+                        android:layout_weight="3"
+                        android:text="数量：x1"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
