@@ -59,7 +59,7 @@
 
     <!--d发现页面-->
     <string name="publish">发表</string>
-    <string name="titile">分享我的发现</string>
+    <string name="titile">晒单</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

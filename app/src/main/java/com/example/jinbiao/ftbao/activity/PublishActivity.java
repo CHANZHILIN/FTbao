@@ -93,8 +93,9 @@ public class PublishActivity extends Activity {
             String picturePath = cursor.getString(columnIndex);
             cursor.close();
             imagePath = picturePath;
-            Toast.makeText(this, imagePath, Toast.LENGTH_SHORT).show();
-            imageView.setImageBitmap(BitmapFactory.decodeFile(imagePath));
+//            Toast.makeText(this, imagePath, Toast.LENGTH_SHORT).show();
+//            imageView.setImageBitmap(BitmapFactory.decodeFile(imagePath));
+            ImageLoader.getInstance().displayImage("file://"+imagePath,imageView);
             frameLayout.setVisibility(View.VISIBLE);
             addImage.setVisibility(View.INVISIBLE);
         }
