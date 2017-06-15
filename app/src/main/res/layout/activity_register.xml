@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    android:background="@mipmap/login_bg"
+    android:background="@mipmap/bg"
     tools:context="com.example.jinbiao.ftbao.activity.RegisterActivity">
 
     <android.support.v7.widget.Toolbar
@@ -50,7 +50,7 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/cv_add"
-        app:cardBackgroundColor="#3b8999"
+
         android:layout_marginTop="10dp"
         android:padding="20dp"
         android:layout_centerInParent="true"
@@ -74,13 +74,13 @@
                     <EditText
                         android:textSize="13sp"
                         android:hint="手机号"
-                        android:textColor="#f0f7f4"
+                        android:textColor="#2fa881"
                         android:id="@+id/et_phone"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:inputType="phone"
-                        android:background="@drawable/selector_bg_edit_2"
-                        android:textCursorDrawable="@drawable/bg_input_cursor_2"
+                        android:background="@drawable/selector_bg_edit"
+                        android:textCursorDrawable="@drawable/bg_input_cursor"
                         android:paddingBottom="2dp"
                         />
                 </android.support.design.widget.TextInputLayout>
@@ -97,11 +97,12 @@
                     android:layout_height="wrap_content">
                     <EditText
                         android:id="@+id/et_code"
+                        android:textColor="#2fa881"
                         android:layout_width="150dp"
                         android:layout_height="30dp"
                         android:hint="验证码"
-                        android:textCursorDrawable="@drawable/bg_input_cursor_2"
-                        android:background="@drawable/selector_bg_edit_2"
+                        android:textCursorDrawable="@drawable/bg_input_cursor"
+                        android:background="@drawable/selector_bg_edit"
                     />
                 </android.support.design.widget.TextInputLayout>
 
@@ -128,7 +129,7 @@
                     <EditText
                         android:textSize="13sp"
                         android:hint="@string/password"
-                        android:textColor="#f0f7f4"
+                        android:textColor="#2fa881"
                         android:id="@+id/et_password"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
@@ -147,7 +148,7 @@
                     android:layout_height="wrap_content">
                     <EditText
                         android:textSize="13sp"
-                        android:textColor="#f0f7f4"
+                        android:textColor="#2fa881"
                         android:hint="@string/password"
                         android:id="@+id/et_confirmpasswd"
                         android:layout_width="match_parent"
@@ -163,12 +164,12 @@
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/btn_register"
-                android:background="@drawable/bt_shape_2"
+                android:background="@drawable/bt_shape"
                 android:stateListAnimator="@drawable/state_list_animator_z"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="注册"
-                android:textColor="#2fa881"
+                android:textColor="#a12647"
                 >
             </Button>
 
