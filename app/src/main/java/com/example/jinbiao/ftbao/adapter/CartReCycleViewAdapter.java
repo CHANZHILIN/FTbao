@@ -102,13 +102,28 @@ public class CartReCycleViewAdapter extends RecyclerView.Adapter implements View
         ((cartViewHolder) holder).mTvGoodcount.setText("数量：x" + cartDatas.get(position).getCount());
         ((cartViewHolder) holder).mTvGoodprice.setText(cartDatas.get(position).getPrice());
         ((cartViewHolder) holder).mTvGoodkind.setText(cartDatas.get(position).getProact());
+
+        //点击商品的CheckBox
         ((cartViewHolder) holder).mCbGood.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
-                    ((cartViewHolder) holder).mCbStorename.setChecked(true);
+                    // calculate(allCount,Double.parseDouble(cartDatas.get(position).getPrice().substring(1)) * cartDatas.get(position).getCount());
+                    //加上选中的价格
+                    Log.e(TAG, "onCheckedChanged: 单价"+cartDatas.get(position).getPrice().substring(1));
+                    Log.e(TAG, "onCheckedChanged: 数量"+cartDatas.get(position).getCount());
+                    allCount += Double.parseDouble(cartDatas.get(position).getPrice().substring(1)) * cartDatas.get(position).getCount();
+                    allCount=Double.parseDouble(String.format("%.2f",allCount));
+                    EventBus.getDefault().post(new PriceEvent(allCount));   //发送到事件总线
+                    Log.e(TAG, "onCheckedChanged:总价 "+ allCount+"选中" );
                 }else {
-                    ((cartViewHolder) holder).mCbStorename.setChecked(false);
+                    Log.e(TAG, "onCheckedChanged: 单价"+cartDatas.get(position).getPrice().substring(1));
+                    Log.e(TAG, "onCheckedChanged: 数量"+cartDatas.get(position).getCount());
+                    //减去选中的价格
+                    allCount -= Double.parseDouble(cartDatas.get(position).getPrice().substring(1)) * cartDatas.get(position).getCount();
+                    allCount=Double.parseDouble(String.format("%.2f",allCount));
+                    EventBus.getDefault().post(new PriceEvent(allCount));   //发送到事件总线
+                    Log.e(TAG, "onCheckedChanged: 总价"+ allCount+"未选中" );
                 }
             }
         });
@@ -118,26 +133,12 @@ public class CartReCycleViewAdapter extends RecyclerView.Adapter implements View
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     ((cartViewHolder) holder).mCbGood.setChecked(true);
-                    // calculate(allCount,Double.parseDouble(cartDatas.get(position).getPrice().substring(1)) * cartDatas.get(position).getCount());
-                    //加上选中的价格
-                    Log.e(TAG, "onCheckedChanged: 单价"+cartDatas.get(position).getPrice().substring(1));
-                    Log.e(TAG, "onCheckedChanged: 数量"+cartDatas.get(position).getCount());
-                    allCount += Double.parseDouble(cartDatas.get(position).getPrice().substring(1)) * cartDatas.get(position).getCount();
-                    allCount=Double.parseDouble(String.format("%.2f",allCount));
-                    EventBus.getDefault().post(new PriceEvent(allCount));   //发送到事件总线
-                    Log.e(TAG, "onCheckedChanged:总价 "+ allCount+"选中" );
+
                 } else {
 //                    EventBus.getDefault().post(new PriceEvent(false));
-                    if (((cartViewHolder) holder).mCbGood.isChecked()) {
-                        ((cartViewHolder) holder).mCbGood.setChecked(false);
-                    }
-                        Log.e(TAG, "onCheckedChanged: 单价"+cartDatas.get(position).getPrice().substring(1));
-                        Log.e(TAG, "onCheckedChanged: 数量"+cartDatas.get(position).getCount());
-                        //减去选中的价格
-                        allCount -= Double.parseDouble(cartDatas.get(position).getPrice().substring(1)) * cartDatas.get(position).getCount();
-                        allCount=Double.parseDouble(String.format("%.2f",allCount));
-                        EventBus.getDefault().post(new PriceEvent(allCount));   //发送到事件总线
-                        Log.e(TAG, "onCheckedChanged: 总价"+ allCount+"未选中" );
+                        if (((cartViewHolder) holder).mCbGood.isChecked()) {
+                            ((cartViewHolder) holder).mCbGood.setChecked(false);
+                        }
                     }
                 }
         });
