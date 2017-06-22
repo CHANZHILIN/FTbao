@@ -67,7 +67,6 @@ public class CartFragment extends BaseFragment {
     private boolean flag = false;
     private boolean isSelectedAll;
 
-    private List<CartData.DataBean> cartDatas;
     public List<CartData.DataBean> cart = new ArrayList<>();
 
 
@@ -102,8 +101,8 @@ public class CartFragment extends BaseFragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
-                   // calculator();   //计算总价格
-                   // mAllnum.setText("￥:"+ num);
+                   /* calculator();   //计算总价格
+                    mAllnum.setText("￥:"+ num);*/
                     mCartReCycleViewAdapter.setSelectedAll(true);
 
                 }else {
@@ -139,6 +138,8 @@ public class CartFragment extends BaseFragment {
 
             }
         });
+
+
 
 
     }
@@ -210,15 +211,15 @@ public class CartFragment extends BaseFragment {
     /**
      * 算出总价钱
      */
-/*    public void calculator(){
+    public void calculator(){
         for (int i = 0; i < cart.size(); i++){
             String data = cart.get(i).getPrice();
             double price = Double.parseDouble(data.substring(1));
             int count = cart.get(i).getCount();
             num += price*count;
-            num=Double.parseDouble(String.format("%.2f",num));
+            num = Double.parseDouble(String.format("%.2f",num));
         }
-    }*/
+    }
 
 
 }

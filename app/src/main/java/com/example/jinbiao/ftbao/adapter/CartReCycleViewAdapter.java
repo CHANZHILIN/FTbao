@@ -1,22 +1,29 @@
 package com.example.jinbiao.ftbao.adapter;
 
+import android.app.Dialog;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jinbiao.ftbao.R;
 import com.example.jinbiao.ftbao.bean.CartData;
 import com.example.jinbiao.ftbao.eventbus.PriceEvent;
 import com.example.jinbiao.ftbao.fragment.CartFragment;
+import com.example.jinbiao.ftbao.interFace.IDeleteCart;
+import com.example.jinbiao.ftbao.utils.Constant;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
@@ -26,6 +33,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by CHEN_ on 2017/6/12.
@@ -45,14 +57,14 @@ public class CartReCycleViewAdapter extends RecyclerView.Adapter implements View
     private boolean flag = false;
     private boolean isSelectedAll = false;
     private static double allCount;
-
     private static final String TAG = "CartReCycleViewAdapter";
+    private CartFragment mCartFragment = new CartFragment();
 
     public void setFlag(boolean flag) {
         this.flag = flag;
     }
 
-    public void setSelectedAll(boolean isSelectedAll){
+    public void setSelectedAll(boolean isSelectedAll) {
         this.isSelectedAll = isSelectedAll;
     }
 
@@ -61,6 +73,7 @@ public class CartReCycleViewAdapter extends RecyclerView.Adapter implements View
         Log.d(TAG, "setCartDatas: " + cartDatas.size());
         this.cartDatas = cartDatas;
     }
+
 
     public CartReCycleViewAdapter(Context context, FragmentManager fragmentManager, List<CartData.DataBean> list) {
         this.context = context;
@@ -79,20 +92,22 @@ public class CartReCycleViewAdapter extends RecyclerView.Adapter implements View
         return viewHolder;
        /* return new cartViewHolder(mLayoutInflater.inflate(R.layout.cycleview_cart, parent, false));*/
     }
+
     @Subscribe
-    public void onEventMainThread(PriceEvent event){
+    public void onEventMainThread(PriceEvent event) {
         allCount = event.getPrice();
-        allCount=Double.parseDouble(String.format("%.2f",allCount));
+        allCount = Double.parseDouble(String.format("%.2f", allCount));
     }
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         //将position保存在itemView的Tag中，便于点击时进行获取
         holder.itemView.setTag(position);
-        Log.e(TAG, "总价: " + allCount + "是吧" );
+        Log.e(TAG, "总价: " + allCount + "是吧");
 
         if (flag) ((cartViewHolder) holder).mLlDelete.setVisibility(View.VISIBLE);
         else ((cartViewHolder) holder).mLlDelete.setVisibility(View.GONE);
+        //是否为全选，若是则全部选中，否则
         if (isSelectedAll) ((cartViewHolder) holder).mCbStorename.setChecked(true);
         else ((cartViewHolder) holder).mCbStorename.setChecked(false);
         ((cartViewHolder) holder).mCbStorename.setText(cartDatas.get(position).getStorename());
@@ -107,23 +122,23 @@ public class CartReCycleViewAdapter extends RecyclerView.Adapter implements View
         ((cartViewHolder) holder).mCbGood.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
                     // calculate(allCount,Double.parseDouble(cartDatas.get(position).getPrice().substring(1)) * cartDatas.get(position).getCount());
                     //加上选中的价格
-                    Log.e(TAG, "onCheckedChanged: 单价"+cartDatas.get(position).getPrice().substring(1));
-                    Log.e(TAG, "onCheckedChanged: 数量"+cartDatas.get(position).getCount());
+                    Log.e(TAG, "onCheckedChanged: 单价" + cartDatas.get(position).getPrice().substring(1));
+                    Log.e(TAG, "onCheckedChanged: 数量" + cartDatas.get(position).getCount());
                     allCount += Double.parseDouble(cartDatas.get(position).getPrice().substring(1)) * cartDatas.get(position).getCount();
-                    allCount=Double.parseDouble(String.format("%.2f",allCount));
+//                    allCount=Double.parseDouble(String.format("%.2f",allCount));
                     EventBus.getDefault().post(new PriceEvent(allCount));   //发送到事件总线
-                    Log.e(TAG, "onCheckedChanged:总价 "+ allCount+"选中" );
-                }else {
-                    Log.e(TAG, "onCheckedChanged: 单价"+cartDatas.get(position).getPrice().substring(1));
-                    Log.e(TAG, "onCheckedChanged: 数量"+cartDatas.get(position).getCount());
+                    Log.e(TAG, "onCheckedChanged:总价 " + allCount + "选中");
+                } else {
+                    Log.e(TAG, "onCheckedChanged: 单价" + cartDatas.get(position).getPrice().substring(1));
+                    Log.e(TAG, "onCheckedChanged: 数量" + cartDatas.get(position).getCount());
                     //减去选中的价格
                     allCount -= Double.parseDouble(cartDatas.get(position).getPrice().substring(1)) * cartDatas.get(position).getCount();
-                    allCount=Double.parseDouble(String.format("%.2f",allCount));
+//                    allCount=Double.parseDouble(String.format("%.2f",allCount));
                     EventBus.getDefault().post(new PriceEvent(allCount));   //发送到事件总线
-                    Log.e(TAG, "onCheckedChanged: 总价"+ allCount+"未选中" );
+                    Log.e(TAG, "onCheckedChanged: 总价" + allCount + "未选中");
                 }
             }
         });
@@ -136,14 +151,33 @@ public class CartReCycleViewAdapter extends RecyclerView.Adapter implements View
 
                 } else {
 //                    EventBus.getDefault().post(new PriceEvent(false));
-                        if (((cartViewHolder) holder).mCbGood.isChecked()) {
-                            ((cartViewHolder) holder).mCbGood.setChecked(false);
-                        }
-                    }
+
+                    ((cartViewHolder) holder).mCbGood.setChecked(false);
+
                 }
+            }
+        });
+
+        ((cartViewHolder) holder).mBtnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(position);
+
+            }
         });
 
 
+    }
+
+    /**
+     * 删除购物车
+     *
+     * @param position
+     */
+    public void remove(int position) {
+        cartDatas.remove(position);
+        notifyItemRemoved(position);
+        CartReCycleViewAdapter.this.notifyDataSetChanged();
     }
 
     @Override
@@ -192,6 +226,8 @@ public class CartReCycleViewAdapter extends RecyclerView.Adapter implements View
         CheckBox mCbGood;
         @BindView(R.id.cb_storename)
         CheckBox mCbStorename;
+        @BindView(R.id.btn_delete)
+        Button mBtnDelete;
 
         public cartViewHolder(View itemView) {
             super(itemView);
@@ -207,5 +243,64 @@ public class CartReCycleViewAdapter extends RecyclerView.Adapter implements View
         allCount = allCount + changeCount;
         return allCount;
     }*/
+
+    /**
+     * 弹出是否确认删除的对话框
+     *
+     * @param position
+     */
+    private void showDialog(final int position) {
+        /* @setIcon 设置对话框图标
+         * @setTitle 设置对话框标题
+         * @setMessage 设置对话框消息提示
+         * setXXX方法返回Dialog对象，因此可以链式设置属性
+         */
+        final AlertDialog.Builder confirmDialog =
+                new AlertDialog.Builder(context);
+        confirmDialog.setIcon(R.drawable.tm_dialog_default_icon);
+        confirmDialog.setTitle("确认删除");
+        confirmDialog.setMessage("是否要删除选中的商品？");
+        confirmDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //连接网络删数据
+                        int cid = cartDatas.get(position).getCid();
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl(Constant.BASE_URL)
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build();
+                        IDeleteCart deleteCart = retrofit.create(IDeleteCart.class);
+                        Call<CartData> call = deleteCart.deleteCartData(cid);   //根据cid去删除购物车
+                        call.enqueue(new Callback<CartData>() {
+                            @Override
+                            public void onResponse(Call<CartData> call, Response<CartData> response) {
+//                        mCartReCycleViewAdapter.notifyDataSetChanged();
+                                String isDelete = response.body().getMessage().toString();
+                                if (isDelete.equals("success")) {
+                                    remove(position);    //如果删除成功，则移除这条购物车信息
+                                } else {
+                                    Toast.makeText(context, "删除失败", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<CartData> call, Throwable t) {
+                                Toast.makeText(context, "连接网络失败", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                    }
+                });
+        confirmDialog.setNegativeButton("关闭",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        // 显示
+        confirmDialog.show();
+    }
 
 }
