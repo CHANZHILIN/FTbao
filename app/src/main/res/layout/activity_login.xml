@@ -98,28 +98,28 @@
                     />
             </android.support.design.widget.TextInputLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <CheckBox
-                    android:id="@+id/cb_remember"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/gray"
-                    android:text="记住密码"/>
-                <CheckBox
-                    android:id="@+id/cb_autologin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/gray"
-                    android:text="自动登录"/>
-            </LinearLayout>
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal">-->
+                <!--<CheckBox-->
+                    <!--android:id="@+id/cb_remember"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:textColor="@color/gray"-->
+                    <!--android:text="记住密码"/>-->
+                <!--<CheckBox-->
+                    <!--android:id="@+id/cb_autologin"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:textColor="@color/gray"-->
+                    <!--android:text="自动登录"/>-->
+            <!--</LinearLayout>-->
 
             <Button
                 android:id="@+id/btn_login"

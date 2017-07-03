@@ -15,10 +15,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.jinbiao.ftbao.R;
+import com.example.jinbiao.ftbao.base.BaseActivity;
+import com.example.jinbiao.ftbao.utils.ActivityCollector;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 
-public class PublishActivity extends Activity {
+public class PublishActivity extends BaseActivity {
 
     private static final String TAG = "PublishActivity";
 
@@ -36,6 +38,7 @@ public class PublishActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish);
+        ActivityCollector.addActivity(this);
         setTitle("发表");
         initView();
         initEvent();

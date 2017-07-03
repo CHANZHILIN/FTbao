@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="80dp"
+              android:padding="15dp"
+              android:background="#eee"
+
+    >
+    <TextView
+        android:id="@+id/user_info_col_one"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:layout_weight="1"
+        android:textSize="20sp"
+        android:text="@string/setting_image"/>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/user_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        style="@style/roundedImage"
+        android:src="@mipmap/notify_small_icon"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/rb_text_color_normal"
+        android:textSize="20sp"
+        android:text="  >"/>
+
+
+</LinearLayout>

@@ -1,16 +1,23 @@
 package com.example.jinbiao.ftbao.activity;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.jinbiao.ftbao.R;
+import com.example.jinbiao.ftbao.base.BaseActivity;
+import com.example.jinbiao.ftbao.bean.RegisterData;
+import com.example.jinbiao.ftbao.utils.ActivityCollector;
+import com.example.jinbiao.ftbao.utils.Constant;
 import com.example.jinbiao.ftbao.utils.ToastUtils;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 
@@ -27,7 +34,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class RegisterActivity extends Activity {
+public class RegisterActivity extends BaseActivity {
 
 
     private static final String APPKEY = "1e854464cbf98";
@@ -44,6 +51,10 @@ public class RegisterActivity extends Activity {
     EditText etPassword;
     @BindView(R.id.et_confirmpasswd)
     EditText etConfirmpasswd;
+    @BindView(R.id.toolbar_login)
+    Toolbar mToolbarLogin;
+    @BindView(R.id.cv_add)
+    CardView mCvAdd;
 
     private OkHttpClient client;
 
@@ -52,9 +63,17 @@ public class RegisterActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        ActivityCollector.addActivity(this);
 
         initSMSSDK();
         ButterKnife.bind(this);
+
+        mToolbarLogin.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RegisterActivity.this.finish();
+            }
+        });
 
 
     }
@@ -74,6 +93,7 @@ public class RegisterActivity extends Activity {
                 break;
             case R.id.btn_register:
                 submitInfo();
+                postRequest(etPhone.getText().toString().trim(), etPassword.getText().toString().trim());
                 break;
         }
     }
@@ -87,7 +107,7 @@ public class RegisterActivity extends Activity {
     private boolean validatePhone() {
         String phone = etPhone.getText().toString().trim();
         if (phone.length() < 11) {
-            ToastUtils.toastShort(getApplicationContext(), "情输入正确的手机号码");
+            ToastUtils.toastShort(getApplicationContext(), "请输入正确的手机号码");
         } else {
             return true;
         }
@@ -172,7 +192,7 @@ public class RegisterActivity extends Activity {
     }
 
 
-    private void postRequest(String phone, String code, String password) {
+    private void postRequest(String phone, String password) {
 
         client = new OkHttpClient();
         //建立请求表单，添加发送到服务器的数据
@@ -182,7 +202,7 @@ public class RegisterActivity extends Activity {
                 .build();
         //发起请求
         Request request = new Request.Builder()
-                .url("xxxxxxxxxxx")
+                .url(Constant.BASE_URL + "registerServlet")
                 .post(formBody)
                 .build();
         Call call = client.newCall(request);
@@ -195,11 +215,27 @@ public class RegisterActivity extends Activity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String isregister = response.body().string();
-                if (isregister.equals("success")){
-                    System.out.println("Register success!");
-                }else{
-                    System.out.println("Failed!");
+                Gson gson = new Gson();
+                RegisterData message = gson.fromJson(isregister, RegisterData.class);
+                String isSuccess = message.getMessage();
+                if (isSuccess.equals("success")) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ToastUtils.toastShort(getBaseContext(),"注册成功");
+                        }
+                    });
+                    RegisterActivity.this.finish();
+//                    startActivity(new Intent(getBaseContext(), LoginActivity.class));
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ToastUtils.toastShort(getBaseContext(),"注册失败");
+                        }
+                    });
                 }
+
             }
         });
     }
@@ -211,8 +247,6 @@ public class RegisterActivity extends Activity {
         super.onDestroy();
         SMSSDK.unregisterAllEventHandler();
     }
-
-
 
 
 }

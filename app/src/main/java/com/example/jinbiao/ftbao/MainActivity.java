@@ -11,6 +11,7 @@ import com.example.jinbiao.ftbao.fragment.CartFragment;
 import com.example.jinbiao.ftbao.fragment.DetailsPageFragment;
 import com.example.jinbiao.ftbao.fragment.DiscoveryFragment;
 import com.example.jinbiao.ftbao.fragment.HomeFragment;
+import com.example.jinbiao.ftbao.utils.ActivityCollector;
 import com.example.jinbiao.ftbao.utils.FragmentUtils;
 
 import butterknife.BindView;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ActivityCollector.addActivity(this);
         //绑定ButterKnife
         ButterKnife.bind(this);
         initView();
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
 
     private void initView() {
         radioGroup.setOnCheckedChangeListener(new RadioGroupListerner());
@@ -64,4 +68,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 }

@@ -61,6 +61,18 @@
     <string name="publish">发表</string>
     <string name="titile">晒单</string>
 
+    <!--个人信息页面-->
+    <string name="setting"> 设置</string>
+    <string name="setting_back">返回</string>
+    <string name="setting_image">头像</string>
+    <string name="setting_username">用户名</string>
+    <string name="setting_pwd">密码</string>
+    <string name="setting_phone">手机号码</string>
+    <string name="setting_sex">性别</string>
+    <string name="setting_birthday">生日</string>
+    <string name="setting_adress">收货地址</string>
+    <string name="setting_loginout">退出登录</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_tshirt_details">TshirtDetailsActivity</string>

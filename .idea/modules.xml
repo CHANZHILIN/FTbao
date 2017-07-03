@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FTbao.iml" filepath="$PROJECT_DIR$/FTbao.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/imageselectorlib/imageselectorlib.iml" filepath="$PROJECT_DIR$/imageselectorlib/imageselectorlib.iml" />
     </modules>
   </component>
 </project>

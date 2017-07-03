@@ -128,8 +128,8 @@
                     android:layout_height="wrap_content">
                     <EditText
                         android:textSize="13sp"
-                        android:hint="@string/password"
                         android:textColor="#2fa881"
+                        android:hint="@string/password"
                         android:id="@+id/et_password"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
