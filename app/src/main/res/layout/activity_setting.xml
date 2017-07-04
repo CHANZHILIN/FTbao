@@ -127,8 +127,7 @@
             android:id="@+id/pwd_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="详情"/>
+            android:textSize="15sp"/>
 
         <TextView
             android:layout_width="wrap_content"

@@ -191,7 +191,7 @@ public class LoginActivity extends BaseActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            ToastUtils.toastShort(getApplicationContext(), "登录失败！");
+                            ToastUtils.toastShort(getApplicationContext(), "账号或密码错误");
                         }
                     });
 

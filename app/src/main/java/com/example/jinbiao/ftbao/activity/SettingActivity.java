@@ -100,7 +100,7 @@ public class SettingActivity extends BaseActivity {
         if (mUserData.size() != 0 && !mUserData.isEmpty() && mUserData.get(0).getImage() != null)
             Picasso.with(getBaseContext()).load(mUserData.get(0).getImage()).resize(80, 80).into(mUserImage);
         mUsernameDetails.setText(mUserData.get(0).getUsername());
-        mPwdDetails.setText(mUserData.get(0).getPassword());
+       // mPwdDetails.setText(mUserData.get(0).getPassword());
         mPhoneDetails.setText(mUserData.get(0).getPhone());
         mSexDetails.setText(mUserData.get(0).getSex());
         mBirthdayDetails.setText(mUserData.get(0).getBirthday());
