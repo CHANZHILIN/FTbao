@@ -11,7 +11,7 @@
         android:orientation="horizontal">
 
         <TextView
-
+            android:id="@+id/detail_back"
             android:layout_width="24dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -139,6 +139,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/add_to_cart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#FF8C1C"
@@ -146,6 +147,7 @@
             android:textColor="#FAFAFA" />
 
         <Button
+            android:id="@+id/buy_now"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#EA2000"

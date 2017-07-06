@@ -15,7 +15,12 @@ import android.widget.Toast;
 import com.example.jinbiao.ftbao.R;
 import com.example.jinbiao.ftbao.bean.ADInfo;
 import com.example.jinbiao.ftbao.bean.Tshirt;
+import com.example.jinbiao.ftbao.bean.TshirtDetail;
+import com.example.jinbiao.ftbao.bean.TshirtDetailData;
+import com.example.jinbiao.ftbao.interFace.ITshirtDetail;
 import com.example.jinbiao.ftbao.pager.cycleviewpager.CycleViewPager;
+import com.example.jinbiao.ftbao.utils.Constant;
+import com.example.jinbiao.ftbao.utils.ToastUtils;
 import com.example.jinbiao.ftbao.utils.ViewFactory;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -24,24 +29,35 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DetailsAdpater extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+
     private List<ImageView> views = new ArrayList<ImageView>();
     private List<ADInfo> infos = new ArrayList<ADInfo>();
     private LayoutInflater mLayoutInflater;
     private Context context;
     private FragmentManager fragmentManager;
     private List<List<Tshirt>> tshirts;
+    private  static List<TshirtDetail> mTshirtsDetails = new ArrayList<>();
     private String[] bannerlist;
-
-    public void setTshirts(List<List<Tshirt>> tshirts){
+    public void setTshirts(List<List<Tshirt>> tshirts) {
         this.tshirts.addAll(tshirts);
     }
+    public static void setTshirtsDetails(List<TshirtDetail> TshirtsDetails){
+        mTshirtsDetails = TshirtsDetails;
+    }
+
     //建立枚举 3个item 类型
     public enum ITEM_TYPE {
         ITEM1,
         ITEM2,
-        ITEM3
+        ITEM3;
     }
 
     public DetailsAdpater(Context context, FragmentManager fragmentManager, List<List<Tshirt>> tshirts, String[] bannerlist) {
@@ -58,6 +74,7 @@ public class DetailsAdpater extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (viewType == ITEM_TYPE.ITEM1.ordinal()) {
             return new Item1ViewHolder(mLayoutInflater.inflate(R.layout.details_items_cvp, parent, false));
         } else if (viewType == ITEM_TYPE.ITEM2.ordinal()) {
+            //返回衣服的具体详情页面
             return new Item2ViewHolder(mLayoutInflater.inflate(R.layout.details_items, parent, false));
         } else {
 
@@ -71,28 +88,37 @@ public class DetailsAdpater extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (holder instanceof Item1ViewHolder) {
 
         } else if (holder instanceof Item2ViewHolder) {
-//            ((Item2ViewHolder) holder).mTextView.setText(titles[position]);
+            if (mTshirtsDetails.size()!=0) {
+
+                ((Item2ViewHolder) holder).mTshirtProinfo.setText(mTshirtsDetails.get(0).getProinfo());
+                ((Item2ViewHolder) holder).mTshirtCurrentPrice.setText(mTshirtsDetails.get(0).getCurrent_price());
+                ((Item2ViewHolder) holder).mTshirtPriceDel.setText(mTshirtsDetails.get(0).getPrice_del());
+                ((Item2ViewHolder) holder).mTshirtProact.setText(mTshirtsDetails.get(0).getProact());
+                ((Item2ViewHolder) holder).mDeliveryFree.setText("快递："+mTshirtsDetails.get(0).getDeliveryFee());
+                ((Item2ViewHolder) holder).mSaleNum.setText("销量："+mTshirtsDetails.get(0).getSaleNum());
+                ((Item2ViewHolder) holder).mListColor.setText(mTshirtsDetails.get(0).getListColor());
+            }
 
         } else if (holder instanceof Item3ViewHolder) {
-            List<Tshirt>list=tshirts.get(position - 2);
+            List<Tshirt> list = tshirts.get(position - 2);
             ImageLoader.getInstance().displayImage(list.get(0).getImgurl(), ((Item3ViewHolder) holder).imgLeft); // imageUrl代表图片的URL地址，imageView代表承载图片的IMAGEVIEW控件
             ((Item3ViewHolder) holder).business.setText(list.get(0).getStorename());
             ((Item3ViewHolder) holder).introduce.setText(list.get(0).getProinfo());
-            ((Item3ViewHolder) holder).sale.setText(list.get(0).getProact()==""?"暂无促销信息":list.get(0).getProact());
-            ((Item3ViewHolder) holder).mesCount.setText(list.get(0).getCommentcount().substring(1,list.get(0).getCommentcount().length()));
-            if(!TextUtils.isEmpty(list.get(0).getGoodcomment())){
-                ((Item3ViewHolder) holder).digCount.setText(list.get(0).getGoodcomment().substring(1,list.get(0).getGoodcomment().length()));
-            }else
+            ((Item3ViewHolder) holder).sale.setText(list.get(0).getProact() == "" ? "暂无促销信息" : list.get(0).getProact());
+            ((Item3ViewHolder) holder).mesCount.setText(list.get(0).getCommentcount().substring(1, list.get(0).getCommentcount().length()));
+            if (!TextUtils.isEmpty(list.get(0).getGoodcomment())) {
+                ((Item3ViewHolder) holder).digCount.setText(list.get(0).getGoodcomment().substring(1, list.get(0).getGoodcomment().length()));
+            } else
                 ((Item3ViewHolder) holder).digCount.setText("50%");
             ((Item3ViewHolder) holder).price.setText(list.get(0).getPrice());
-            if(list.size()==2){
+            if (list.size() == 2) {
                 ImageLoader.getInstance().displayImage(list.get(1).getImgurl(), ((Item3ViewHolder) holder).imgRight); // imageUrl代表图片的URL地址，imageView代表承载图片的IMAGEVIEW控件
                 ((Item3ViewHolder) holder).businessOther.setText(list.get(1).getStorename());
                 ((Item3ViewHolder) holder).introduceOther.setText(list.get(1).getProinfo());
-                ((Item3ViewHolder) holder).saleOther.setText(list.get(1).getProact()==""?"暂无促销信息":list.get(1).getProact());
-                ((Item3ViewHolder) holder).mesCountOther.setText(list.get(1).getCommentcount().substring(1,list.get(1).getCommentcount().length()));
-                if(!TextUtils.isEmpty(list.get(1).getGoodcomment()))
-                    ((Item3ViewHolder) holder).digCountOther.setText(list.get(1).getGoodcomment().substring(1,list.get(1).getGoodcomment().length()));
+                ((Item3ViewHolder) holder).saleOther.setText(list.get(1).getProact() == "" ? "暂无促销信息" : list.get(1).getProact());
+                ((Item3ViewHolder) holder).mesCountOther.setText(list.get(1).getCommentcount().substring(1, list.get(1).getCommentcount().length()));
+                if (!TextUtils.isEmpty(list.get(1).getGoodcomment()))
+                    ((Item3ViewHolder) holder).digCountOther.setText(list.get(1).getGoodcomment().substring(1, list.get(1).getGoodcomment().length()));
                 else
                     ((Item3ViewHolder) holder).digCountOther.setText("50%");
                 ((Item3ViewHolder) holder).priceOther.setText(list.get(1).getPrice());
@@ -127,6 +153,25 @@ public class DetailsAdpater extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     //item2 的ViewHolder
     public static class Item2ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.tshirt_proinfo)
+        TextView mTshirtProinfo;
+        @BindView(R.id.tshirt_price_del)
+        TextView mTshirtPriceDel;
+        @BindView(R.id.tshirt_current_price_)
+        TextView mTshirtCurrentPrice;
+        @BindView(R.id.delivery_free)
+        TextView mDeliveryFree;
+        @BindView(R.id.sale_num)
+        TextView mSaleNum;
+        @BindView(R.id.goodcomment)
+        TextView mGoodcomment;
+        @BindView(R.id.tshirt_proact)
+        TextView mTshirtProact;
+        @BindView(R.id.list_color)
+        TextView mListColor;
+        @BindView(R.id.testPopuwindow)
+        TextView mTestPopuwindow;
+
         public Item2ViewHolder(View itemView) {
             super(itemView);
 
@@ -189,6 +234,7 @@ public class DetailsAdpater extends RecyclerView.Adapter<RecyclerView.ViewHolder
             ButterKnife.bind(this, itemView);
         }
     }
+
 
     private void cycleViewPagerOn(final CycleViewPager cycleViewPager) {
         for (int i = 0; i < bannerlist.length; i++) {

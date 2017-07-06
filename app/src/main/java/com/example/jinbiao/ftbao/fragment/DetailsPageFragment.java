@@ -9,9 +9,12 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +26,8 @@ import com.example.jinbiao.ftbao.bean.Tshirt;
 import com.example.jinbiao.ftbao.bean.TshirtData;
 import com.example.jinbiao.ftbao.interFace.ITshirt;
 import com.example.jinbiao.ftbao.utils.Constant;
+import com.example.jinbiao.ftbao.utils.LogUtils;
+import com.example.jinbiao.ftbao.view.MyPopUpWindow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,15 +56,20 @@ private static final String TAG = "DetailPageFragment";
     List<List<Tshirt>> lists=new ArrayList<>();
     private Handler handler =new Handler(Looper.getMainLooper());
     private static int currentpage=1;
+    private static String[] bannerlist = {  "http://d8.yihaodianimg.com/N09/M00/93/72/ChEi11j4XVmAQcLgAAagobz1vJU65600_230*322.jpg",
+            "http://d8.yihaodianimg.com/N09/M00/93/72/ChEi11j4XVmAQcLgAAagobz1vJU65600_230*322.jpg",
+        "http://d8.yihaodianimg.com/N09/M00/93/72/ChEi11j4XVmAQcLgAAagobz1vJU65600_230*322.jpg",
+        "http://d8.yihaodianimg.com/N09/M00/93/72/ChEi11j4XVmAQcLgAAagobz1vJU65600_230*322.jpg"};
     private int lastVisibleItem;
     //如果当前是刷新状态就设置为false
     private static boolean refreshing=true;
-    private String[] bannerlist = {
-            "http://img.taodiantong.cn/v55183/infoimg/2013-07/130720115322ky.jpg",
-            "http://pic30.nipic.com/20130626/8174275_085522448172_2.jpg",
-            "http://pic18.nipic.com/20111215/577405_080531548148_2.jpg",
-            "http://pic15.nipic.com/20110722/2912365_092519919000_2.jpg",
-            "http://pic.58pic.com/58pic/12/64/27/55U58PICrdX.jpg"};
+    public static void setUrl(String url){
+        bannerlist = url.split("\\|");
+
+    }
+
+
+
 
     @Override
     public DetailsPageFragment newInstance(){
@@ -173,5 +183,7 @@ private static final String TAG = "DetailPageFragment";
             swiperefreshlayout.setRefreshing(false);
         }
     }
+
+
 
 }

@@ -17,6 +17,7 @@ import com.example.jinbiao.ftbao.R;
 import com.example.jinbiao.ftbao.activity.TshirtDetailsActivity;
 import com.example.jinbiao.ftbao.bean.ADInfo;
 import com.example.jinbiao.ftbao.bean.Tshirt;
+import com.example.jinbiao.ftbao.fragment.DetailsPageFragment;
 import com.example.jinbiao.ftbao.pager.cycleviewpager.CycleViewPager;
 import com.example.jinbiao.ftbao.utils.ViewFactory;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -75,13 +76,15 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
 //            ((Item2ViewHolder) holder).mTextView.setText(titles[position]);
 
         } else if (holder instanceof Item3ViewHolder) {
-            List<Tshirt>list=tshirts.get(position - 2);
+            final List<Tshirt>list=tshirts.get(position - 2);
             ImageLoader.getInstance().displayImage(list.get(0).getImgurl(), ((Item3ViewHolder) holder).imgLeft); // imageUrl代表图片的URL地址，imageView代表承载图片的IMAGEVIEW控件
            ((Item3ViewHolder) holder).imgLeft.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
 //                   tshirtDetailsFragment = (TshirtDetailsFragment) FragmentUtils.loadFragment(tshirtDetailsFragment, TshirtDetailsFragment.class, fragmentManager, R.id.content_main);
                     context.startActivity(new Intent(context, TshirtDetailsActivity.class));
+                   //将href传过去
+                   TshirtDetailsActivity.setTshirtId(list.get(0).getDetails());
                }
            });
             ((Item3ViewHolder) holder).business.setText(list.get(0).getStorename());
@@ -100,6 +103,8 @@ public class ReCycleViewAdpater extends RecyclerView.Adapter<RecyclerView.ViewHo
                     public void onClick(View v) {
 //                        tshirtDetailsFragment = (TshirtDetailsFragment) FragmentUtils.loadFragment(tshirtDetailsFragment, TshirtDetailsFragment.class, fragmentManager, R.id.content_main);
                         context.startActivity(new Intent(context, TshirtDetailsActivity.class));
+                        //将href传过去
+                        TshirtDetailsActivity.setTshirtId(list.get(1).getDetails());
                     }
                 });
                 ((Item3ViewHolder) holder).businessOther.setText(list.get(1).getStorename());
